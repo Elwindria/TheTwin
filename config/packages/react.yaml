@@ -1,0 +1,13 @@
+# Default configuration for "ReactBundle"
+react:
+
+    # The path to the directory where React controller components are stored - relevant only when using symfony/asset-mapper.
+    controllers_path:     '%kernel.project_dir%/assets/react/controllers'
+
+    # The glob patterns to use to find React controller components inside of controllers_path
+    name_glob:
+
+        # Defaults:
+        - '*.js'
+        - '*.jsx'
+

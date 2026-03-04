@@ -18,3 +18,8 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+###> symfony/ux-react ###
+/node_modules/
+/assets/react/controllers/*.js
+###< symfony/ux-react ###
