@@ -1,0 +1,60 @@
+/* ===== Login & Register ===== */
+.auth-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 65px);
+    padding: 40px 16px;
+}
+
+.auth-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 44px 48px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.auth-card h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.auth-card .subtitle {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 28px;
+}
+
+.auth-divider {
+    border: none;
+    border-top: 1px solid #f0f0f0;
+    margin: 20px 0;
+}
+
+.auth-footer {
+    text-align: center;
+    font-size: 13px;
+    color: #888;
+    margin-top: 22px;
+}
+
+.auth-footer a {
+    color: #e8622a;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #555;
+}
