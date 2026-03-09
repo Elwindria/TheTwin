@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}The Twin{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{{ asset('medias/thetwin-logo.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -15,7 +16,9 @@
 </head>
 <body>
     <nav>
-        <a href="{{ path('app_home') }}" class="nav-logo">The Twin</a>
+        <a href="{{ path('app_home') }}" class="nav-logo">
+            <img src="{{ asset('medias/thetwin-logo.png') }}" alt="The Twin" height="44">
+        </a>
         <div class="nav-links">
             <a href="#">Corpo</a>
             <a href="#">Solo</a>
@@ -28,5 +31,12 @@
     </nav>
 
     {% block body %}{% endblock %}
+
+    <footer class="footer">
+        <a href="{{ path('app_home') }}" class="footer__logo">
+            <img src="{{ asset('medias/thetwin-logo.png') }}" alt="The Twin" height="36">
+        </a>
+        <p class="footer__text">Projet tutoré 2025–2026 · Université de Limoges</p>
+    </footer>
 </body>
 </html>

@@ -127,3 +127,34 @@ nav {
     font-size: 13px;
     margin-bottom: 16px;
 }
+
+/* ── Footer ── */
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 40px;
+    border-top: 1px solid #d8d7d2;
+    background: #f5f4f0;
+}
+
+.footer__logo {
+    display: flex;
+    align-items: center;
+}
+
+.footer__logo img {
+    opacity: 0.85;
+    transition: opacity 0.2s;
+}
+
+.footer__logo img:hover {
+    opacity: 1;
+}
+
+.footer__text {
+    font-family: 'Montserrat', 'Arial', sans-serif;
+    font-size: 13px;
+    font-style: italic;
+    color: #888;
+}

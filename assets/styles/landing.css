@@ -1,0 +1,230 @@
+/* ── Variables ── */
+:root {
+    --color-accent:     #E84A1A;
+    --color-accent-dark:#c93e12;
+    --color-bg:         #f5f4f0;
+    --color-text:       #1a1a1a;
+    --color-text-muted: #555555;
+    --color-border:     #d8d7d2;
+    --color-steps-bg:   #2a2a2a;
+    --color-steps-text: #d4d3ce;
+    --font-main:        'Montserrat', 'Arial', sans-serif;
+    --max-width:        1100px;
+    --padding-x:        40px;
+}
+
+/* ── Hero ── */
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 60px var(--padding-x) 50px;
+}
+
+.hero__title {
+    font-family: var(--font-main);
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    color: var(--color-text);
+    margin: 0 0 24px;
+}
+
+.hero__desc {
+    font-family: var(--font-main);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--color-text);
+    max-width: 420px;
+    margin: 0 0 32px;
+}
+
+.hero__badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+
+/* ── Badges ── */
+.badge {
+    border: 1.5px solid #b0afa8;
+    border-radius: 20px;
+    padding: 7px 18px;
+    font-family: var(--font-main);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    background: transparent;
+    cursor: default;
+}
+
+/* ── Divider ── */
+.section-divider {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 0 var(--padding-x);
+}
+
+/* ── Section label ── */
+.section-label {
+    font-family: var(--font-main);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+}
+
+/* ── Concept ── */
+.concept {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 56px var(--padding-x) 40px;
+}
+
+.concept__title {
+    font-family: var(--font-main);
+    font-size: clamp(26px, 3.5vw, 38px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    color: var(--color-text);
+    margin: 0 0 40px;
+}
+
+/* ── Steps ── */
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1.5px solid #c8c7c2;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: var(--color-steps-bg);
+}
+
+.step {
+    padding: 28px 24px 32px;
+    border-right: 1px solid #3e3e3e;
+    color: var(--color-steps-text);
+}
+
+.step--last {
+    border-right: none;
+}
+
+.step__number {
+    display: block;
+    font-family: 'Georgia', serif;
+    font-size: 52px;
+    font-style: italic;
+    color: #555;
+    text-align: right;
+    line-height: 1;
+    margin-bottom: 16px;
+}
+
+.step__title {
+    font-family: var(--font-main);
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 600;
+    color: #c0bfba;
+    margin-bottom: 10px;
+}
+
+.step__desc {
+    font-family: var(--font-main);
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    color: #888;
+    line-height: 1.6;
+}
+
+/* ── CTA ── */
+.cta {
+    text-align: center;
+    padding: 64px var(--padding-x) 56px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.cta__title {
+    font-family: var(--font-main);
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    color: var(--color-text);
+    margin: 0 0 20px;
+}
+
+.cta__desc {
+    font-family: var(--font-main);
+    font-size: 15px;
+    font-weight: 400;
+    color: #444;
+    line-height: 1.65;
+    max-width: 480px;
+    margin: 0 auto 32px;
+}
+
+/* ── Accent color ── */
+.accent {
+    color: var(--color-accent);
+}
+
+/* ── Shared button (complète app.css) ── */
+.btn-primary {
+    display: inline-block;
+    background: var(--color-accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 36px;
+    font-family: var(--font-main);
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: var(--color-accent-dark);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    :root {
+        --padding-x: 20px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding-top: 40px;
+    }
+
+    .hero__right {
+        order: -1;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+    }
+
+    .step {
+        border-right: none;
+        border-bottom: 1px solid #3e3e3e;
+    }
+
+    .step--last {
+        border-bottom: none;
+    }
+}

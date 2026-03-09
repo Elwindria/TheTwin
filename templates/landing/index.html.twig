@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}The Twin — Bats ton jumeau carbone{% endblock %}
+
+{% block body %}
+
+{# ── HERO ── #}
+<section class="hero">
+    <div class="hero__left">
+        <h1 class="hero__title">
+            Bats ton <span class="accent">jumeau<br>carbone.</span>
+        </h1>
+        <p class="hero__desc">
+            The Twin te confronte à une version de toi-même
+            qui choisit toujours l'option la plus polluante.
+            Chaque semaine, un défi collectif. Pas de
+            compétition, pas de culpabilité — juste de l'action.
+        </p>
+        <div class="hero__badges">
+            <span class="badge">Transport</span>
+            <span class="badge">Alimentation</span>
+            <span class="badge">Numérique</span>
+        </div>
+    </div>
+    <div class="hero__right">
+        <img src="{{ asset('medias/twin.png') }}" alt="Le Twin" class="hero__img">
+    </div>
+</section>
+
+<hr class="section-divider">
+
+{# ── CONCEPT ── #}
+<section class="concept">
+    <p class="section-label">-Le concept</p>
+    <h2 class="concept__title">
+        Pas de sermon.<br>
+        Juste ton <span class="accent">Twin</span> qui flanche.
+    </h2>
+
+    <div class="steps">
+        <div class="step">
+            <span class="step__number">01</span>
+            <h3 class="step__title">Tu déclares tes gestes</h3>
+            <p class="step__desc">
+                Transport, alimentation, numérique,
+                consommation — un formulaire rapide
+                et anonyme. Tes réponses ne sont
+                jamais stockées.
+            </p>
+        </div>
+        <div class="step">
+            <span class="step__number">02</span>
+            <h3 class="step__title">Ton Twin fait l'inverse</h3>
+            <p class="step__desc">
+                Il choisit systématiquement l'option
+                la plus confortable et légèrement
+                plus polluante. Puis il te le justifie
+                avec une logique implacable.
+            </p>
+        </div>
+        <div class="step step--last">
+            <span class="step__number">03</span>
+            <h3 class="step__title">Le groupe bat ses Twins</h3>
+            <p class="step__desc">
+                Vos scores s'additionnent. Pas de
+                classement individuel — l'objectif
+                est collectif : battre les Twins de
+                votre groupe ensemble.
+            </p>
+        </div>
+    </div>
+</section>
+
+{# ── CTA ── #}
+<section class="cta">
+    <p class="section-label">REJOINDRE</p>
+    <h2 class="cta__title">
+        Prêt à battre<br>
+        ton <span class="accent">Twin</span> ?
+    </h2>
+    <p class="cta__desc">
+        Rejoins la première vague d'utilisateurs. C'est gratuit,
+        sans compte complexe, et tes données ne sont jamais conservées.
+    </p>
+    <a href="{{ path('app_register') }}" class="btn-primary">
+        Démarrer →
+    </a>
+</section>
+
+{% endblock %}
