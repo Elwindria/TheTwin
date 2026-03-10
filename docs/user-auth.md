@@ -95,7 +95,7 @@ La migration correspondante se trouve dans `migrations/Version20260308200725.php
 `assets/styles/auth.css` -> Card login/register, footer, divider 
 `assets/styles/profile.css` -> Card profil, layout 2 colonnes, flash success 
 
-Couleur principale : **`#e8622a`** (orange)
+Couleur principale : **`#3cb16f`** (orange)
 Font : **Inter** (Google Fonts)
 Les styles sont compilés via Webpack Encore dans `public/build/`.
 

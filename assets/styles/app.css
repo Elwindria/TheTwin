@@ -48,7 +48,7 @@ nav {
 }
 
 .btn-nav {
-    background: #e8622a;
+    background: #3cb16f;
     color: #fff !important;
     padding: 8px 22px;
     border-radius: 20px;
@@ -57,7 +57,7 @@ nav {
 }
 
 .btn-nav:hover {
-    background: #d45522;
+    background: #3cb16f;
 }
 
 /* ===== Gemeinsame Form-Elemente ===== */
@@ -90,19 +90,19 @@ nav {
 .form-group input[type="text"]:focus,
 .form-group input[type="email"]:focus,
 .form-group input[type="password"]:focus {
-    border-color: #e8622a;
+    border-color: #3cb16f;
     background: #fff;
 }
 
 .form-group input[type="checkbox"] {
-    accent-color: #e8622a;
+    accent-color: #3cb16f;
 }
 
 /* ===== Gemeinsamer Button ===== */
 .btn-primary {
     width: 100%;
     padding: 12px;
-    background: #e8622a;
+    background: #3cb16f;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -115,7 +115,7 @@ nav {
 }
 
 .btn-primary:hover {
-    background: #d45522;
+    background: #3cb16f;
 }
 
 /* ===== Alert ===== */
