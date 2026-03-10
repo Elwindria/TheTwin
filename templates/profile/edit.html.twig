@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil — The Twin{% endblock %}
+
+{% block body %}
+<div class="profile-page">
+    <div class="profile-card">
+        <h1>Mon profil</h1>
+        <p class="subtitle">{{ app.user.firstName }} {{ app.user.lastName }}</p>
+
+        {% for message in app.flashes('success') %}
+            <div class="flash-success">{{ message }}</div>
+        {% endfor %}
+
+        {{ form_start(form, { attr: { novalidate: 'novalidate' } }) }}
+
+            <p class="profile-section-title">Informations personnelles</p>
+
+            <div class="form-row">
+                <div class="form-group">
+                    {{ form_label(form.firstName, 'Prénom') }}
+                    {{ form_widget(form.firstName) }}
+                    {{ form_errors(form.firstName) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.lastName, 'Nom') }}
+                    {{ form_widget(form.lastName) }}
+                    {{ form_errors(form.lastName) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.email, 'Email') }}
+                {{ form_widget(form.email) }}
+                {{ form_errors(form.email) }}
+            </div>
+
+            <hr class="profile-divider">
+
+            <p class="profile-section-title">Changer le mot de passe</p>
+            <p style="font-size:13px; color:#aaa; margin-bottom:16px;">Laisse vide pour garder le mot de passe actuel.</p>
+
+            <div class="form-group">
+                {{ form_label(form.newPassword.first) }}
+                {{ form_widget(form.newPassword.first) }}
+                {{ form_errors(form.newPassword.first) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.newPassword.second) }}
+                {{ form_widget(form.newPassword.second) }}
+                {{ form_errors(form.newPassword.second) }}
+            </div>
+
+            <button type="submit" class="btn-save">Enregistrer les modifications</button>
+
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}
