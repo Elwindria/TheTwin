@@ -45,6 +45,9 @@ nav {
 
 .nav-links a:hover {
     color: #1a1a1a;
+    text-decoration: underline;
+    text-decoration-color: #26844f;
+    text-decoration-thickness: 2px;
 }
 
 .btn-nav {
@@ -57,7 +60,7 @@ nav {
 }
 
 .btn-nav:hover {
-    background: #3cb16f;
+    background: #26844f;
 }
 
 /* ===== Gemeinsame Form-Elemente ===== */
