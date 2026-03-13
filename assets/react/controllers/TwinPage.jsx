@@ -4,6 +4,7 @@ import MyTwinTab from '../../components/twin/MyTwinTab';
 import MyScoreTab from '../../components/twin/MyScoreTab';
 import MyChallengesTab from '../../components/twin/MyChallengesTab';
 import MyActionsTab from '../../components/twin/MyActionsTab';
+import twinImage from '../../images/twin.png';
 
 export default function TwinPage() {
     const [activeTab, setActiveTab] = useState('twin');
@@ -24,11 +25,16 @@ export default function TwinPage() {
     };
 
     return (
-        <section className="twin-page">
-            <TwinTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        <section className="twin-page" id="twin-page">
+            <div id="twin-page-left" class="twin-panel">
+                <img src={twinImage} alt="Twin" />
+            </div>
+            <div id="twin-page-right" class="twin-panel">
+                <TwinTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
-            <div className="twin-page__content">
-                {renderActiveTab()}
+                <div className="twin-page__content">
+                    {renderActiveTab()}
+                </div>
             </div>
         </section>
     );
