@@ -54,6 +54,8 @@ h2 {
     margin: 0 0 20px 0;
 }
 
+/* Form */
+
 #form-actions {
     background-color: #E2E8F0;
     padding: .625rem 1.25rem;
@@ -80,3 +82,42 @@ button:hover {
     color: #ffffff;
     background-color: #0F172A;
 }
+
+
+/* Form */
+/* Toast  */
+
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    min-width: 250px;
+    margin-bottom: 10px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: 500;
+
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success {
+    background: #3cb16f;
+}
+
+.toast.error {
+    background: #8B0000;
+}
+
+/* Toast  */

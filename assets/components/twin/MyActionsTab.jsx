@@ -6,6 +6,17 @@ export default function MyActionsTab({ actionsData }) {
     const [selectedActionId, setSelectedActionId] = useState('');
     const [selectedVariantId, setSelectedVariantId] = useState('');
     const [kmValue, setKmValue] = useState('');
+    const [toast, setToast] = useState(null);
+    const [toastType, setToastType] = useState(null);
+
+    const showToast = (message, type = "success") => {
+        setToast(message);
+        setToastType(type);
+
+        setTimeout(() => {
+            setToast(null);
+        }, 4000);
+    };
 
     const selectedCategory = useMemo(() => {
         return actionsData.find(
@@ -83,9 +94,18 @@ export default function MyActionsTab({ actionsData }) {
 
             const result = await response.json();
 
-            console.log('Réponse Symfony :', result);
+            if (result.status === "ok") {
+                showToast(result.message, "success");
+
+                setSelectedCategoryId('');
+                setSelectedActionId('');
+                setSelectedVariantId('');
+                setKmValue('');
+            } else {
+                showToast(result.message, "error");
+            }
         } catch (error) {
-            console.error('Erreur lors de l’envoi :', error);
+            showToast("Erreur serveur", "error");
         }
     };
 
@@ -165,6 +185,14 @@ export default function MyActionsTab({ actionsData }) {
                     <button type="submit">
                         Ajouter l’action
                     </button>
+                )}
+
+                {toast && (
+                    <div className="toast-container">
+                        <div className={`toast ${toastType} show`}>
+                            {toast}
+                        </div>
+                    </div>
                 )}
             </form>
         </div>
