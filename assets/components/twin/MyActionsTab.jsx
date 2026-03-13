@@ -54,10 +54,14 @@ export default function MyActionsTab({ actionsData }) {
         setSelectedVariantId(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (!selectedCategory || !selectedAction || !selectedVariant) {
+            return;
+        }
+
+        if (selectedAction.inputType === 'km' && !kmValue) {
             return;
         }
 
@@ -68,7 +72,21 @@ export default function MyActionsTab({ actionsData }) {
             km: selectedAction.inputType === 'km' ? Number(kmValue) : null,
         };
 
-        console.log('Payload à envoyer :', payload);
+        try {
+            const response = await fetch('/user-action', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const result = await response.json();
+
+            console.log('Réponse Symfony :', result);
+        } catch (error) {
+            console.error('Erreur lors de l’envoi :', error);
+        }
     };
 
     return (
