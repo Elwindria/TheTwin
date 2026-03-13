@@ -39,7 +39,7 @@ class UserAction
 
     #[ORM\ManyToOne(inversedBy: 'userActions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?ecoAction $ecoAction = null;
+    private ?EcoAction $ecoAction = null;
 
     #[ORM\ManyToOne(inversedBy: 'userActions')]
     #[ORM\JoinColumn(nullable: false)]
@@ -134,12 +134,12 @@ class UserAction
         return $this;
     }
 
-    public function getEcoAction(): ?ecoAction
+    public function getEcoAction(): ?EcoAction
     {
         return $this->ecoAction;
     }
 
-    public function setEcoAction(?ecoAction $ecoAction): static
+    public function setEcoAction(?EcoAction $ecoAction): static
     {
         $this->ecoAction = $ecoAction;
 

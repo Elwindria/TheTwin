@@ -30,7 +30,7 @@ class EcoActionVariant
 
     #[ORM\ManyToOne(inversedBy: 'ecoActionVariants')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?ecoAction $ecoAction = null;
+    private ?EcoAction $ecoAction = null;
 
     /**
      * @var Collection<int, UserAction>
@@ -96,12 +96,12 @@ class EcoActionVariant
         return $this;
     }
 
-    public function getEcoAction(): ?ecoAction
+    public function getEcoAction(): ?EcoAction
     {
         return $this->ecoAction;
     }
 
-    public function setEcoAction(?ecoAction $ecoAction): static
+    public function setEcoAction(?EcoAction $ecoAction): static
     {
         $this->ecoAction = $ecoAction;
 
