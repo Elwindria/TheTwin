@@ -32,32 +32,33 @@ class EcoActionFixtures extends Fixture
         }
 
         $actions = [
-            ['name' => 'Utiliser le vélo ou le train au lieu de la voiture', 'category' => 'Déplacement'],
-            ['name' => 'Faire du covoiturage', 'category' => 'Déplacement'],
-            ['name' => 'Utiliser les transports en commun', 'category' => 'Déplacement'],
+            ['name' => 'Utiliser le vélo ou le train au lieu de la voiture', 'category' => 'Déplacement', 'inputType' => 'km'],
+            ['name' => 'Faire du covoiturage', 'category' => 'Déplacement', 'inputType' => 'km'],
+            ['name' => 'Utiliser les transports en commun', 'category' => 'Déplacement', 'inputType' => 'km'],
 
-            ['name' => 'Cuisiner maison plutôt que commander', 'category' => 'Alimentation'],
-            ['name' => 'Acheter des produits de saison ou locaux', 'category' => 'Alimentation'],
+            ['name' => 'Cuisiner maison plutôt que commander', 'category' => 'Alimentation', 'inputType' => 'none'],
+            ['name' => 'Acheter des produits de saison ou locaux', 'category' => 'Alimentation', 'inputType' => 'none'],
 
-            ['name' => 'Réparer un objet électronique', 'category' => 'Consommation'],
-            ['name' => 'Acheter un produit d\'occasion', 'category' => 'Consommation'],
+            ['name' => 'Réparer un objet électronique', 'category' => 'Consommation', 'inputType' => 'none'],
+            ['name' => 'Acheter un produit d\'occasion', 'category' => 'Consommation', 'inputType' => 'none'],
 
-            ['name' => 'Réduire le chauffage de X°C', 'category' => 'Energie'],
+            ['name' => 'Réduire le chauffage de X°C', 'category' => 'Energie', 'inputType' => 'none'],
 
-            ['name' => 'Réduire le streaming vidéo de X heure', 'category' => 'Numérique'],
-            ['name' => 'Supprimer X mail', 'category' => 'Numérique'],
+            ['name' => 'Réduire le streaming vidéo de X heure', 'category' => 'Numérique', 'inputType' => 'none'],
+            ['name' => 'Supprimer X mail', 'category' => 'Numérique', 'inputType' => 'none'],
 
-            ['name' => 'Trier ses déchets', 'category' => 'Déchets'],
-            ['name' => 'Composter des déchets organiques', 'category' => 'Déchets'],
+            ['name' => 'Trier ses déchets', 'category' => 'Déchets', 'inputType' => 'none'],
+            ['name' => 'Composter des déchets organiques', 'category' => 'Déchets', 'inputType' => 'none'],
 
-            ['name' => 'Planter un arbre', 'category' => 'Engagement écologique'],
-            ['name' => 'Participer à une action de nettoyage', 'category' => 'Engagement écologique'],
+            ['name' => 'Planter un arbre', 'category' => 'Engagement écologique', 'inputType' => 'none'],
+            ['name' => 'Participer à une action de nettoyage', 'category' => 'Engagement écologique', 'inputType' => 'none'],
         ];
 
         foreach ($actions as $actionData) {
             $action = new EcoAction();
             $action->setName($actionData['name']);
             $action->setCategory($categoryEntities[$actionData['category']]);
+            $action->setInputType($actionData['inputType']);
 
             $manager->persist($action);
         }

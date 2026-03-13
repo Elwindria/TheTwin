@@ -34,6 +34,9 @@ class EcoAction
     #[ORM\OneToMany(targetEntity: UserAction::class, mappedBy: 'ecoAction')]
     private Collection $userActions;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $inputType = null;
+
     public function __construct()
     {
         $this->ecoActionVariants = new ArrayCollection();
@@ -125,6 +128,18 @@ class EcoAction
                 $userAction->setEcoAction(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getInputType(): ?string
+    {
+        return $this->inputType;
+    }
+
+    public function setInputType(?string $inputType): static
+    {
+        $this->inputType = $inputType;
 
         return $this;
     }
