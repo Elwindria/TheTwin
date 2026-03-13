@@ -19,9 +19,13 @@
     padding: 2.5rem;
 }
 
-#img-twin {
-    width: 12.5rem;
-    height: 12.5rem;
+.img-twin {
+    width: 18.75rem;
+    height: 18.75rem;
+}
+
+.img-nature {
+    width: 100%;
 }
 
 .twin-tabs {
@@ -35,6 +39,8 @@
     background-color: unset;
     border: none;
     padding: .625rem 1.25rem;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .twin-tabs__button.is-active {

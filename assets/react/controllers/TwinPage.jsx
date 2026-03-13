@@ -5,6 +5,7 @@ import MyScoreTab from '../../components/twin/MyScoreTab';
 import MyChallengesTab from '../../components/twin/MyChallengesTab';
 import MyActionsTab from '../../components/twin/MyActionsTab';
 import twinImage from '../../images/twin.png';
+import natureImage from '../../images/natureImage.png';
 
 export default function TwinPage() {
     const [activeTab, setActiveTab] = useState('twin');
@@ -24,10 +25,40 @@ export default function TwinPage() {
         }
     };
 
+    const getTwinImage = () => {
+        switch (activeTab) {
+            case 'twin':
+                return twinImage;
+            case 'score':
+                return natureImage;
+            case 'challenges':
+                return natureImage;
+            case 'actions':
+                return natureImage;
+            default:
+                return twinImage;
+        }
+    };
+
+    const getTwinImageClass = () => {
+        switch (activeTab) {
+            case 'twin':
+                return "img-twin";
+            case 'score':
+                return "img-nature";
+            case 'challenges':
+                return "img-nature";
+            case 'actions':
+                return "img-nature";
+            default:
+                return "img-nature";
+        }
+    };
+
     return (
         <section className="twin-page" id="twin-page">
             <div id="twin-page-left" class="twin-panel">
-                <img src={twinImage} alt="Twin" />
+                <img class={getTwinImageClass()} src={getTwinImage()} alt="Twin" />
             </div>
             <div id="twin-page-right" class="twin-panel">
                 <TwinTabs activeTab={activeTab} setActiveTab={setActiveTab} />
