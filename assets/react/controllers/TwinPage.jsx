@@ -7,7 +7,7 @@ import MyActionsTab from '../../components/twin/MyActionsTab';
 import twinImage from '../../images/twin.png';
 import natureImage from '../../images/natureImage.png';
 
-export default function TwinPage() {
+export default function TwinPage({ actionsData }) {
     const [activeTab, setActiveTab] = useState('twin');
 
     const renderActiveTab = () => {
@@ -19,7 +19,7 @@ export default function TwinPage() {
             case 'challenges':
                 return <MyChallengesTab />;
             case 'actions':
-                return <MyActionsTab />;
+                return <MyActionsTab actionsData={actionsData} />;
             default:
                 return <MyTwinTab />;
         }
@@ -57,10 +57,10 @@ export default function TwinPage() {
 
     return (
         <section className="twin-page" id="twin-page">
-            <div id="twin-page-left" class="twin-panel">
-                <img class={getTwinImageClass()} src={getTwinImage()} alt="Twin" />
+            <div id="twin-page-left" className="twin-panel">
+                <img className={getTwinImageClass()} src={getTwinImage()} alt="Twin" />
             </div>
-            <div id="twin-page-right" class="twin-panel">
+            <div id="twin-page-right" className="twin-panel">
                 <TwinTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
                 <div className="twin-page__content">
