@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block body %}
-    <div {{ react_component('TwinPage') }}>
+    <div {{ react_component('TwinPage', { actionsData: actionsData }) }}>
         Loading...
     </div>
 {% endblock %}
