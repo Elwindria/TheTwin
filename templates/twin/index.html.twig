@@ -3,5 +3,7 @@
 {% block title %}Hello TwinController!{% endblock %}
 
 {% block body %}
-    <div id="twin-page-root"></div>
+    <div {{ react_component('TwinPage') }}>
+        Loading...
+    </div>
 {% endblock %}

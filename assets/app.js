@@ -10,7 +10,6 @@ import './styles/app.css';
 import './styles/auth.css';
 import './styles/profile.css';
 import './styles/landing.css';
-import './react/pages/TwinPage';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 
