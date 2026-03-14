@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -46,6 +48,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     #[Assert\NotBlank]
     private ?string $lastName = null;
+
+    /**
+     * @var Collection<int, UserAction>
+     */
+    #[ORM\OneToMany(targetEntity: UserAction::class, mappedBy: 'user')]
+    private Collection $userActions;
+
+    public function __construct()
+    {
+        $this->userActions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -154,6 +167,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(string $lastName): static
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserAction>
+     */
+    public function getUserActions(): Collection
+    {
+        return $this->userActions;
+    }
+
+    public function addUserAction(UserAction $userAction): static
+    {
+        if (!$this->userActions->contains($userAction)) {
+            $this->userActions->add($userAction);
+            $userAction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserAction(UserAction $userAction): static
+    {
+        if ($this->userActions->removeElement($userAction)) {
+            // set the owning side to null (unless already changed)
+            if ($userAction->getUser() === $this) {
+                $userAction->setUser(null);
+            }
+        }
 
         return $this;
     }
