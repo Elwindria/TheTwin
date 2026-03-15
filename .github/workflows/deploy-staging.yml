@@ -10,16 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Start SSH agent
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.STAGING_SSH_KEY }}
-
-      - name: Add server to known_hosts
+      - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
+          printf "%s" "${{ secrets.STAGING_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ secrets.STAGING_HOST }} >> ~/.ssh/known_hosts
 
       - name: Run deploy script on server
         run: |
-          ssh ${{ secrets.STAGING_USER }}@${{ secrets.STAGING_HOST }} "bash /var/www/thetwin/deploy.sh"
+          ssh -i ~/.ssh/id_ed25519 ${{ secrets.STAGING_USER }}@${{ secrets.STAGING_HOST }} "bash /var/www/thetwin/deploy.sh"
