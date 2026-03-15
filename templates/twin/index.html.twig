@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TwinController!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('twin') }}
+{% endblock %}
+
+{% block body %}
+    <div {{ react_component('TwinPage', { actionsData: actionsData }) }}>
+        Loading...
+    </div>
+{% endblock %}
