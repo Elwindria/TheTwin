@@ -20,8 +20,8 @@
             <img src="{{ asset('medias/thetwin-logo.png') }}" alt="The Twin" height="44">
         </a>
         <div class="nav-links">
-            <a href="#">Corpo</a>
-            <a href="#">Solo</a>
+            <a href="#">Collectif</a>
+            <a href="{{ path('app_twin') }}">MonTwin</a>
             {% if app.user %}
                 <a href="{{ path('app_logout') }}" class="btn-nav">Déconnexion</a>
             {% else %}
