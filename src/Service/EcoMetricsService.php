@@ -19,104 +19,88 @@ class EcoMetricsService
     {
         $week = WeekRange::current();
 
-        $userActions = $this->userActionRepository->getAllWeeklyUserActionsForUser(
+        $userActions = $this->userActionRepository->getAllWeeklyUserActionsForUser
+            (
                 $user,
                 $week->getStart(),
                 $week->getEnd(),
             );
 
-            $summary = [
-                'totalTwinCo2Produced' => 0.0,
-                'totalCo2Saved' => 0.0,
-                'totalScore' => 0,
-                'totalActionsCount' => 0,
-                'categories' => [],
-            ];
-
-            foreach ($userActions as $userAction) {
-                $category = $userAction->getCategory();
-                $categoryId = $category->getId();
-                $categoryName = $category->getName();
-
-                $twinCo2Produced = (float) $userAction->getFinalTwinCo2Produced();
-                $co2Saved = (float) $userAction->getFinalCo2Saved();
-                $score = (int) $userAction->getScore();
-
-                $summary['totalTwinCo2Produced'] += $twinCo2Produced;
-                $summary['totalCo2Saved'] += $co2Saved;
-                $summary['totalScore'] += $score;
-                $summary['totalActionsCount']++;
-
-                if (!isset($summary['categories'][$categoryId])) {
-                    $summary['categories'][$categoryId] = [
-                        'categoryId' => $categoryId,
-                        'categoryName' => $categoryName,
-                        'totalTwinCo2Produced' => 0.0,
-                        'totalCo2Saved' => 0.0,
-                        'totalScore' => 0,
-                        'totalActionsCount' => 0,
-                    ];
-                }
-
-                $summary['categories'][$categoryId]['totalTwinCo2Produced'] += $twinCo2Produced;
-                $summary['categories'][$categoryId]['totalCo2Saved'] += $co2Saved;
-                $summary['categories'][$categoryId]['totalScore'] += $score;
-                $summary['categories'][$categoryId]['totalActionsCount']++;
-            }
-
-            $summary['categories'] = array_values($summary['categories']);
-
-            return $summary;
+        return $this->buildSummaryFromUserActions($userActions);
     }
 
     public function getSummaryForUser(User $user): array
     {
 
-        $userActions = $this->userActionRepository->getAllUserActionsForUser(
-                $user
-            );
+        $userActions = $this->userActionRepository->getAllUserActionsForUser($user);
 
-            $summary = [
-                'totalTwinCo2Produced' => 0.0,
-                'totalCo2Saved' => 0.0,
-                'totalScore' => 0,
-                'totalActionsCount' => 0,
-                'categories' => [],
-            ];
+        return $this->buildSummaryFromUserActions($userActions);
+    }
 
-            foreach ($userActions as $userAction) {
-                $category = $userAction->getCategory();
-                $categoryId = $category->getId();
-                $categoryName = $category->getName();
+    public function getWeeklySummaryForAllUsers(): array
+    {
+        $week = WeekRange::current();
 
-                $twinCo2Produced = (float) $userAction->getFinalTwinCo2Produced();
-                $co2Saved = (float) $userAction->getFinalCo2Saved();
-                $score = (int) $userAction->getScore();
+        $usersActions = $this->userActionRepository->getAllWeeklyUserActionsForAllUsers
+        (
+            $week->getStart(),
+            $week->getEnd(),
+        );
 
-                $summary['totalTwinCo2Produced'] += $twinCo2Produced;
-                $summary['totalCo2Saved'] += $co2Saved;
-                $summary['totalScore'] += $score;
-                $summary['totalActionsCount']++;
+        return $this->buildSummaryFromUserActions($usersActions);
+    }
 
-                if (!isset($summary['categories'][$categoryId])) {
-                    $summary['categories'][$categoryId] = [
-                        'categoryId' => $categoryId,
-                        'categoryName' => $categoryName,
-                        'totalTwinCo2Produced' => 0.0,
-                        'totalCo2Saved' => 0.0,
-                        'totalScore' => 0,
-                        'totalActionsCount' => 0,
-                    ];
-                }
+    public function getSummaryForAllUsers(): array
+    {
 
-                $summary['categories'][$categoryId]['totalTwinCo2Produced'] += $twinCo2Produced;
-                $summary['categories'][$categoryId]['totalCo2Saved'] += $co2Saved;
-                $summary['categories'][$categoryId]['totalScore'] += $score;
-                $summary['categories'][$categoryId]['totalActionsCount']++;
+        $usersActions = $this->userActionRepository->getAllUserActionsForAllUsers();
+
+        return $this->buildSummaryFromUserActions($usersActions);
+    }
+
+    private function buildSummaryFromUserActions(array $userActions): array
+    {
+        $summary = [
+            'totalTwinCo2Produced' => 0.0,
+            'totalCo2Saved' => 0.0,
+            'totalScore' => 0,
+            'totalActionsCount' => 0,
+            'categories' => [],
+        ];
+
+        foreach ($userActions as $userAction) {
+            $category = $userAction->getCategory();
+            $categoryId = $category->getId();
+            $categoryName = $category->getName();
+
+            $twinCo2Produced = (float) $userAction->getFinalTwinCo2Produced();
+            $co2Saved = (float) $userAction->getFinalCo2Saved();
+            $score = (int) $userAction->getScore();
+
+            $summary['totalTwinCo2Produced'] += $twinCo2Produced;
+            $summary['totalCo2Saved'] += $co2Saved;
+            $summary['totalScore'] += $score;
+            $summary['totalActionsCount']++;
+
+            if (!isset($summary['categories'][$categoryId])) {
+                $summary['categories'][$categoryId] = [
+                    'categoryId' => $categoryId,
+                    'categoryName' => $categoryName,
+                    'totalTwinCo2Produced' => 0.0,
+                    'totalCo2Saved' => 0.0,
+                    'totalScore' => 0,
+                    'totalActionsCount' => 0,
+                ];
             }
 
-            $summary['categories'] = array_values($summary['categories']);
+            $summary['categories'][$categoryId]['totalTwinCo2Produced'] += $twinCo2Produced;
+            $summary['categories'][$categoryId]['totalCo2Saved'] += $co2Saved;
+            $summary['categories'][$categoryId]['totalScore'] += $score;
+            $summary['categories'][$categoryId]['totalActionsCount']++;
+        }
 
-            return $summary;
+        $summary['categories'] = array_values($summary['categories']);
+
+        return $summary;
     }
 }

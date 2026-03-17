@@ -43,4 +43,24 @@ class UserActionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getAllWeeklyUserActionsForAllUsers(
+        DateTimeImmutable $start,
+        DateTimeImmutable $end
+    ) : array {
+        return $this->createQueryBuilder('ua')
+            ->where('ua.createdAt >= :start')
+            ->andWhere('ua.createdAt < :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAllUserActionsForAllUsers(
+    ) : array {
+        return $this->createQueryBuilder('ua')
+            ->getQuery()
+            ->getResult();
+    }
 }
