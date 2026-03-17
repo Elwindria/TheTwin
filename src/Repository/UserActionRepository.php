@@ -35,7 +35,7 @@ class UserActionRepository extends ServiceEntityRepository
                 ->getSingleScalarResult();
     }
 
-    public function getTotalTwinCo2ForAllUsersForThisWeek(
+    public function getTotalAllTwinsCo2ForAllUsersForThisWeek(
         DateTimeImmutable $start,
         DateTimeImmutable $end
     ) : float {

@@ -26,7 +26,7 @@ class EcoMetricsService
         );
     }
 
-    public function getTotalTwinCo2ForAllUsersForThisWeek(): int
+    public function getTotalAllTwinsCo2ForAllUsersForThisWeek(): int
     {
         $week = WeekRange::current();
 
