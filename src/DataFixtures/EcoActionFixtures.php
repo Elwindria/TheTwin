@@ -45,7 +45,7 @@ class EcoActionFixtures extends Fixture
             ['name' => 'Réduire le chauffage de X°C', 'category' => 'Energie', 'inputType' => 'none'],
 
             ['name' => 'Réduire le streaming vidéo de X heure', 'category' => 'Numérique', 'inputType' => 'none'],
-            ['name' => 'Supprimer X mail', 'category' => 'Numérique', 'inputType' => 'none'],
+            ['name' => 'Supprimer X mails', 'category' => 'Numérique', 'inputType' => 'none'],
 
             ['name' => 'Trier ses déchets', 'category' => 'Déchets', 'inputType' => 'none'],
             ['name' => 'Composter des déchets organiques', 'category' => 'Déchets', 'inputType' => 'none'],
