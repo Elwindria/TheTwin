@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\UserAction;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use DateTimeImmutable;
+use App\Entity\User;
 
 /**
  * @extends ServiceEntityRepository<UserAction>
@@ -16,28 +18,20 @@ class UserActionRepository extends ServiceEntityRepository
         parent::__construct($registry, UserAction::class);
     }
 
-    //    /**
-    //     * @return UserAction[] Returns an array of UserAction objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?UserAction
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function getTotalTwinCo2ForUserForThisWeek(
+        User $user,
+        DateTimeImmutable $start,
+        DateTimeImmutable $end
+    ) : float {
+            return (float) $this->createQueryBuilder('ua')
+                ->select('COALESCE(SUM(ua.finalTwinCo2Produced), 0)')
+                ->where('ua.user = :user')
+                ->andWhere('ua.createdAt >= :start')
+                ->andWhere('ua.createdAt < :end')
+                ->setParameter('user', $user)
+                ->setParameter('start', $start)
+                ->setParameter('end', $end)
+                ->getQuery()
+                ->getSingleScalarResult();
+    }
 }

@@ -3,18 +3,26 @@
 namespace App\Service;
 
 use App\Repository\UserActionRepository;
+use App\ValueObject\WeekRange;
+use App\Entity\User;
 
 class EcoMetricsService
 {
     public function __construct(
-        private UserActionRepository $userActionRepository
+        private UserActionRepository $userActionRepository,
     ) 
     {
 
     }
 
-    public function getTotalScoreAllUsers(): int
+    public function getTotalTwinCo2ForUserForThisWeek(User $user): int
     {
-        return $this->userActionRepository->getTotalScore();
+        $week = WeekRange::current();
+
+        return $this->userActionRepository->getTotalTwinCo2ForUserForThisWeek(
+            $user,
+            $week->getStart(),
+            $week->getEnd(),
+        );
     }
 }
