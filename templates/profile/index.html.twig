@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil — The Twin{% endblock %}
+
+{% block body %}
+    <div {{ react_component('ProfilePage', {
+        editUrl:   path('app_profile_edit'),
+        firstName: firstName,
+        lastName:  lastName,
+        username:  username,
+        avatarUrl: avatarUrl
+    }) }}>
+        Chargement...
+    </div>
+{% endblock %}

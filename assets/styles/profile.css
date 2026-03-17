@@ -1,4 +1,167 @@
-/* ===== Edit Profile ===== */
+/* ===== Page Profil ===== */
+.profil-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 24px;
+}
+
+.profil-hero {
+    margin-bottom: 28px;
+}
+
+.profil-title {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 0.01em;
+}
+
+.profil-subtitle {
+    font-size: 14px;
+    color: #888;
+    margin-top: 6px;
+}
+
+/* Carte en haut avec avatar, nom et bouton */
+.profil-header-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+/* Conteneur de l'avatar */
+.profil-avatar-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.profil-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #3cb16f;
+    display: block;
+}
+
+/* Placeholder si l'utilisateur n'a pas de photo : cercle avec ses initiales */
+.profil-avatar--placeholder {
+    background: #e6f4ed;
+    color: #26844f;
+    font-weight: 700;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Badge LVL affiché en bas de l'avatar */
+.profil-lvl-badge {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+/* Bloc des informations utilisateur */
+.profil-info {
+    flex: 1;
+}
+
+.profil-name {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.profil-badges-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+}
+
+.profil-badge {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.profil-badge--green {
+    background: #e6f4ed;
+    color: #26844f;
+    border: 1px solid #b2dfca;
+}
+
+.profil-since {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.profil-title-role {
+    font-size: 13px;
+    color: #555;
+}
+
+/* Bouton pour modifier le profil */
+.profil-edit-btn {
+    flex-shrink: 0;
+    background: #3cb16f;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.profil-edit-btn:hover {
+    background: #26844f;
+}
+
+/* ===== Formulaire d'édition du profil ===== */
+
+/* Bloc avatar dans le formulaire d'édition */
+.profile-avatar-edit {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 8px;
+}
+
+.profile-avatar-preview {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #3cb16f;
+    flex-shrink: 0;
+}
+
+/* Placeholder initiales dans le formulaire */
+.profile-avatar-preview--placeholder {
+    background: #e6f4ed;
+    color: #26844f;
+    font-weight: 700;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .profile-page {
     display: flex;
     align-items: flex-start;

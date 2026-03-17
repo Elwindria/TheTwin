@@ -15,6 +15,25 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted('ROLE_USER')]
 class ProfileController extends AbstractController
 {
+    #[Route('/profile', name: 'app_profile')]
+    public function index(): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
+        // On construit l'URL de l'avatar si l'utilisateur en a un
+        $avatarUrl = $user->getAvatarFilename()
+            ? '/uploads/avatars/' . $user->getAvatarFilename()
+            : null;
+
+        return $this->render('profile/index.html.twig', [
+            'firstName' => $user->getFirstName(),
+            'lastName'  => $user->getLastName(),
+            'username'  => $user->getUsername(),
+            'avatarUrl' => $avatarUrl,
+        ]);
+    }
+
     #[Route('/profile/edit', name: 'app_profile_edit')]
     public function edit(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher, AvatarUploader $avatarUploader): Response
     {
