@@ -133,6 +133,108 @@
     background: #26844f;
 }
 
+/* ===== Tabs ===== */
+.profil-tabs {
+    display: flex;
+    gap: 4px;
+    border-bottom: 2px solid #e8e8e8;
+    margin-top: 24px;
+}
+
+.profil-tab {
+    background: none;
+    border: none;
+    padding: 12px 18px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: #888;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.2s;
+}
+
+.profil-tab:hover {
+    color: #1a1a1a;
+}
+
+.profil-tab--active {
+    color: #3cb16f;
+    border-bottom-color: #3cb16f;
+}
+
+.profil-tab-content {
+    margin-top: 28px;
+}
+
+.profil-tab-placeholder {
+    color: #aaa;
+    font-size: 14px;
+    padding: 32px 0;
+    text-align: center;
+}
+
+/* ===== Stats cards ===== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.stats-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+}
+
+.stats-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.stats-icon--green  { background: #e6f4ed; color: #26844f; }
+.stats-icon--yellow { background: #fef9e7; color: #d4a017; font-size: 20px; }
+.stats-icon--purple { background: #eeeaf8; color: #6c5ce7; font-size: 20px; }
+
+.stats-label {
+    font-size: 13px;
+    color: #888;
+}
+
+.stats-value {
+    font-size: 28px;
+    font-weight: 900;
+    color: #1a1a1a;
+    line-height: 1;
+}
+
+.stats-unit {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.stats-trend {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.trend--up   { color: #3cb16f; }
+.trend--down { color: #e74c3c; }
+
 /* ===== Formulaire d'édition du profil ===== */
 
 /* Bloc avatar dans le formulaire d'édition */

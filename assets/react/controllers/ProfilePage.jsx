@@ -1,8 +1,30 @@
+import { useState } from 'react';
 import ProfileHeader from '../../components/profile/ProfileHeader';
+import ProfileTabs from '../../components/profile/ProfileTabs';
+import StatsOverview from '../../components/profile/StatsOverview';
 
-// Composant principal de la page profil
-// Il reçoit les données utilisateur en props depuis le controller Symfony
-export default function ProfilePage({ editUrl, firstName, lastName, username, avatarUrl }) {
+export default function ProfilePage({ editUrl, firstName, lastName, username, avatarUrl, totalCo2, totalActions, currentRank, co2Trend, actionsTrend, rankChange }) {
+    const [activeTab, setActiveTab] = useState('overview');
+
+    const renderTab = () => {
+        switch (activeTab) {
+            case 'overview':
+                return (
+                    <StatsOverview
+                        totalCo2={totalCo2}
+                        totalActions={totalActions}
+                        currentRank={currentRank}
+                        co2Trend={co2Trend}
+                        actionsTrend={actionsTrend}
+                        rankChange={rankChange}
+                    />
+                );
+            // les autres onglets seront ajoutés plus tard
+            default:
+                return <p className="profil-tab-placeholder">Bientôt disponible</p>;
+        }
+    };
+
     return (
         <div className="profil-page">
 
@@ -18,6 +40,12 @@ export default function ProfilePage({ editUrl, firstName, lastName, username, av
                 username={username}
                 avatarUrl={avatarUrl}
             />
+
+            <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+
+            <div className="profil-tab-content">
+                {renderTab()}
+            </div>
 
         </div>
     );
