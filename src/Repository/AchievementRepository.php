@@ -15,4 +15,14 @@ class AchievementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Achievement::class);
     }
+
+    public function findAllActiveOrdered(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.type', 'ASC')
+            ->addOrderBy('a.threshold', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }
+
