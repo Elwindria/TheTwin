@@ -10,10 +10,10 @@ class EcoMetricsService
         private UserActionRepository $userActionRepository
     ) 
     {
-        
+
     }
 
-    public function getTotalScore(): int
+    public function getTotalScoreAllUsers(): int
     {
         return $this->userActionRepository->getTotalScore();
     }
