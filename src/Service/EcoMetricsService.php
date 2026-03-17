@@ -5,11 +5,14 @@ namespace App\Service;
 use App\Repository\UserActionRepository;
 use App\ValueObject\WeekRange;
 use App\Entity\User;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
 
 class EcoMetricsService
 {
     public function __construct(
         private UserActionRepository $userActionRepository,
+        private UserRepository $userRepository,
     ) 
     {
 
@@ -100,5 +103,28 @@ class EcoMetricsService
         $summary['categories'] = array_values($summary['categories']);
 
         return $summary;
+    }
+
+    public function getSummaryByAllUsers(): array
+    {
+        $actions = $this->userActionRepository->findAllActionWithUserAndCategory();
+
+        $actionsByUsers = [];
+
+        foreach ($actions as $action) {
+            $userId = $action->getUser()->getId();
+            $actionsByUsers[$userId][] = $action;
+        }
+
+        $summaryByUsers = [];
+
+        foreach ($actionsByUsers as $userId => $userActions) {
+            $summaryByUsers[] = [
+                'user_id' => $userId,
+                'summary' => $this->buildSummaryFromUserActions($userActions),
+            ];
+        }
+
+        return $summaryByUsers;
     }
 }

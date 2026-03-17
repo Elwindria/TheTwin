@@ -63,4 +63,16 @@ class UserActionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllActionWithUserAndCategory(): array
+    {
+        return $this->createQueryBuilder('ua')
+            ->leftJoin('ua.user', 'u')
+            ->addSelect('u')
+            ->leftJoin('ua.category', 'c')
+            ->addSelect('c')
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }
