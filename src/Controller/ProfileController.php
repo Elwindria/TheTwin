@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ProfileFormType;
+use App\Service\AvatarUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ProfileController extends AbstractController
 {
     #[Route('/profile/edit', name: 'app_profile_edit')]
-    public function edit(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher): Response
+    public function edit(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher, AvatarUploader $avatarUploader): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(ProfileFormType::class, $user);
@@ -26,6 +27,17 @@ class ProfileController extends AbstractController
             $newPassword = $form->get('newPassword')->getData();
             if ($newPassword) {
                 $user->setPassword($hasher->hashPassword($user, $newPassword));
+            }
+
+            // Si l'utilisateur a uploadé une nouvelle photo de profil
+            $avatarFile = $form->get('avatarFile')->getData();
+            if ($avatarFile) {
+                // On supprime l'ancien avatar pour ne pas garder des fichiers inutiles
+                $avatarUploader->remove($user->getAvatarFilename());
+
+                // On sauvegarde le nouveau fichier et on met à jour l'entité
+                $newFilename = $avatarUploader->upload($avatarFile);
+                $user->setAvatarFilename($newFilename);
             }
 
             $em->flush();

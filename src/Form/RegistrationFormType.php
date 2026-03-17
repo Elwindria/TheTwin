@@ -5,9 +5,11 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -21,6 +23,19 @@ class RegistrationFormType extends AbstractType
             ->add('email')
             ->add('firstName')
             ->add('lastName')
+            // Photo de profil optionnelle à l'inscription
+            ->add('avatarFile', FileType::class, [
+                'mapped'   => false,
+                'required' => false,
+                'label'    => 'Photo de profil (optionnel)',
+                'constraints' => [
+                    new File(
+                        maxSize: '2M',
+                        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+                        mimeTypesMessage: 'Veuillez uploader une image valide (jpg, png, webp)',
+                    ),
+                ],
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                                 'mapped' => false,
                 'constraints' => [
