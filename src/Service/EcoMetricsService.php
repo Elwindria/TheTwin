@@ -5,13 +5,18 @@ namespace App\Service;
 use App\Repository\UserActionRepository;
 use App\ValueObject\WeekRange;
 use App\Entity\User;
+use App\Repository\AchievementRepository;
 use App\Repository\UserAchievementRepository;
+use App\Repository\UserRepository;
+use Doctrine\Inflector\Rules\English\Rules;
 
 class EcoMetricsService
 {
     public function __construct(
         private UserActionRepository $userActionRepository,
         private UserAchievementRepository $userAchievementRepository,
+        private AchievementRepository $achievementRepository,
+        private UserRepository $userRepository,
     ) 
     {
 
@@ -108,7 +113,40 @@ class EcoMetricsService
     {
         $actions = $this->userActionRepository->findAllActionWithUserAndCategory();
         $userAchievements = $this->userAchievementRepository->findAllWithUserAndAchievement();
+        $achievements = $this->achievementRepository->findAllActiveOrdered();
+        $userWinstreak = $this->userRepository->findAllWithWinstreak();
 
+        $actionsByUsers = $this->getActionsByUsers($actions);
+        $ownedAchievementsByUser = $this->getOwnedAchievementsByUser($userAchievements);
+        $winstreakByUser = $this->getWinstreakByUser($userWinstreak);
+        $rules = $this->getRules($achievements);
+
+
+        $summaryByUsers = [];
+
+        foreach ($actionsByUsers as $userId => $userActions) {
+
+            $achievementCount = count($ownedAchievementsByUser[$userId] ?? []);
+            $winstreak = $winstreakByUser[$userId] ?? 0;
+
+            $summaryByUsers[] = [
+                'user_id' => $userId,
+                'summary' => $this->buildSummaryAchievementFromUserActions(
+                    $userActions,
+                    $achievementCount,
+                    $winstreak,
+                    $rules
+                ),
+                'owned_achievement_codes' => $ownedAchievementsByUser[$userId] ?? [],
+                'rules' => $rules,
+            ];
+        }
+
+        return $summaryByUsers;
+    }
+
+    private function getActionsByUsers(array $actions): array
+    {
         $actionsByUsers = [];
 
         foreach ($actions as $action) {
@@ -116,6 +154,11 @@ class EcoMetricsService
             $actionsByUsers[$userId][] = $action;
         }
 
+        return $actionsByUsers;
+    }
+
+    private function getOwnedAchievementsByUser(array $userAchievements): array
+    {
         $ownedAchievementsByUser = [];
 
         foreach ($userAchievements as $userAchievement) {
@@ -125,16 +168,43 @@ class EcoMetricsService
             $ownedAchievementsByUser[$userId][] = $achievementCode;
         }
 
-        $summaryByUsers = [];
+        return $ownedAchievementsByUser;
+    }
 
-        foreach ($actionsByUsers as $userId => $userActions) {
-            $summaryByUsers[] = [
-                'user_id' => $userId,
-                'summary' => $this->buildSummaryFromUserActions($userActions),
-                'owned_achievement_codes' => $ownedAchievementsByUser[$userId] ?? [],
+    private function getRules(array $achievements): array
+    {
+        $rules = [];
+
+        foreach ($achievements as $achievement) {
+            $rules[] = [
+                'id' => $achievement->getId(),
+                'code' => $achievement->getCode(),
+                'type' => $achievement->getType(),
+                'threshold' => $achievement->getThreshold(),
             ];
         }
 
-        return $summaryByUsers;
+        return $rules;
+    }
+
+    private function getWinstreakByUser(array $users): array
+    {
+        $winstreakByUser = [];
+
+        foreach ($users as $user) {
+            $winstreakByUser[$user['id']] = $user['winstreak'];
+        }
+
+        return $winstreakByUser;
+    }
+
+    private function buildSummaryAchievementFromUserActions(
+        array $userActions,
+        int $achievementCount,
+        int $winstreak,
+        array $rules
+    ): array
+    {
+        return [];
     }
 }
