@@ -25,4 +25,14 @@ class EcoMetricsService
             $week->getEnd(),
         );
     }
+
+    public function getTotalTwinCo2ForAllUsersForThisWeek(): int
+    {
+        $week = WeekRange::current();
+
+        return $this->userActionRepository->getTotalTwinCo2ForAllUsersForThisWeek(
+            $week->getStart(),
+            $week->getEnd(),
+        );
+    }
 }

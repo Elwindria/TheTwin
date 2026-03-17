@@ -34,4 +34,18 @@ class UserActionRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getSingleScalarResult();
     }
+
+    public function getTotalTwinCo2ForAllUsersForThisWeek(
+        DateTimeImmutable $start,
+        DateTimeImmutable $end
+    ) : float {
+            return (float) $this->createQueryBuilder('ua')
+                ->select('COALESCE(SUM(ua.finalTwinCo2Produced), 0)')
+                ->where('ua.createdAt >= :start')
+                ->andWhere('ua.createdAt < :end')
+                ->setParameter('start', $start)
+                ->setParameter('end', $end)
+                ->getQuery()
+                ->getSingleScalarResult();
+    }
 }
