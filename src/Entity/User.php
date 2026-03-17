@@ -66,6 +66,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private Collection $userAchievements;
 
+    #[ORM\Column]
+    private ?int $winstreak = 0;
+
     public function __construct()
     {
         $this->userActions = new ArrayCollection();
@@ -234,8 +237,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeUserAchievement(UserAchievement $userAchievement): static
     {
         if ($this->userAchievements->removeElement($userAchievement)) {
-            // avec orphanRemoval, pas besoin de setUser(null)
         }
+
+        return $this;
+    }
+
+    public function getWinstreak(): ?int
+    {
+        return $this->winstreak;
+    }
+
+    public function setWinstreak(int $winstreak): static
+    {
+        $this->winstreak = $winstreak;
 
         return $this;
     }
