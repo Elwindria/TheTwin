@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Repository\CategoryRepository;
-use App\Service\EcoMetricsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -15,7 +14,6 @@ final class TwinController extends AbstractController
     #[Route('/twin', name: 'app_twin')]
     public function index(
         CategoryRepository $categoryRepository,
-        EcoMetricsService $ecoMetricsService
     ): Response
     {
         $categories = $categoryRepository->findAll();
