@@ -33,4 +33,14 @@ class UserActionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getAllUserActionsForUser(
+        User $user,
+    ) : array {
+        return $this->createQueryBuilder('ua')
+            ->where('ua.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
 }
