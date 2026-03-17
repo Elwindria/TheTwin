@@ -58,8 +58,5 @@ class AchievementAwarderService
         }
 
         $this->entityManager->flush();
-
-        $patata = $this->achievementRepository->findAll();
-        dd($patata);
     }
 }

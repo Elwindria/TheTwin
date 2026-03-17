@@ -53,8 +53,6 @@ final class TwinController extends AbstractController
             ];
         }
 
-        $AchievementAwarderService->awardAchievementByUsers();
-
         return $this->render('twin/index.html.twig', [
             'actionsData' => $actionsData,
         ]);
