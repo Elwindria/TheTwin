@@ -31,7 +31,6 @@ class EcoMetricsService
 
     public function getSummaryForUser(User $user): array
     {
-
         $userActions = $this->userActionRepository->getAllUserActionsForUser($user);
 
         return $this->buildSummaryFromUserActions($userActions);
@@ -52,7 +51,6 @@ class EcoMetricsService
 
     public function getSummaryForAllUsers(): array
     {
-
         $usersActions = $this->userActionRepository->getAllUserActionsForAllUsers();
 
         return $this->buildSummaryFromUserActions($usersActions);
