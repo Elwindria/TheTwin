@@ -5,7 +5,9 @@ import MyScoreTab from '../../components/twin/MyScoreTab';
 import MyChallengesTab from '../../components/twin/MyChallengesTab';
 import MyActionsTab from '../../components/twin/MyActionsTab';
 import twinImage from '../../images/twin.png';
-import natureImage from '../../images/natureImage.png';
+import scoreImage from '../../images/scoreImage.png';
+import challengesImage from '../../images/challengesImage.png';
+import actionsImage from '../../images/actionsImage.png';
 
 export default function TwinPage({ actionsData }) {
     const [activeTab, setActiveTab] = useState('twin');
@@ -30,11 +32,11 @@ export default function TwinPage({ actionsData }) {
             case 'twin':
                 return twinImage;
             case 'score':
-                return natureImage;
+                return scoreImage;
             case 'challenges':
-                return natureImage;
+                return challengesImage;
             case 'actions':
-                return natureImage;
+                return actionsImage;
             default:
                 return twinImage;
         }
@@ -45,20 +47,20 @@ export default function TwinPage({ actionsData }) {
             case 'twin':
                 return "img-twin";
             case 'score':
-                return "img-nature";
+                return "img-score";
             case 'challenges':
-                return "img-nature";
+                return "img-challenges";
             case 'actions':
-                return "img-nature";
+                return "img-actions";
             default:
-                return "img-nature";
+                return "img-twin";
         }
     };
 
     return (
         <section className="twin-page" id="twin-page">
             <div id="twin-page-left" className="twin-panel">
-                <img className={getTwinImageClass()} src={getTwinImage()} alt="Twin" />
+                <img className={`img ${getTwinImageClass()}`} src={getTwinImage()} alt="Twin" />
             </div>
             <div id="twin-page-right" className="twin-panel">
                 <TwinTabs activeTab={activeTab} setActiveTab={setActiveTab} />

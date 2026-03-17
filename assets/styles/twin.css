@@ -5,23 +5,23 @@
 
 .twin-panel {
     width: 50%;
+    background-color: #f7f7f5;
 }
 
 #twin-page-left {
-    background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.img {
+    max-width: 25rem;
+    border-radius: 25px;
+}
+
 #twin-page-right {
     background-color: #f7f7f5;
     padding: 2.5rem;
-}
-
-.img-twin {
-    width: 18.75rem;
-    height: 18.75rem;
 }
 
 .img-nature {
