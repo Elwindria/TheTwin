@@ -7,7 +7,7 @@ use App\Service\EcoMetricsService;
 class AchievementAwarderService
 {
     public function __construct(
-        private EcoMetricsService $EcoMetricsService,
+        private EcoMetricsService $ecoMetricsService,
     ) 
     {
 
@@ -15,10 +15,14 @@ class AchievementAwarderService
 
     public function awardAchievementByUsers(): void
     {
-        $summaryByAllUsers = $this->EcoMetricsService->getSummaryByAllUsers();
+            $dataByUsers = $this->ecoMetricsService->getSummaryByAllUsers();
 
-        foreach ($summaryByAllUsers as $summaryByUser){
-            
-        }
+            foreach ($dataByUsers as $userData) {
+                $userId = $userData['user_id'];
+                $summary = $userData['summary'];
+                $ownedCodes = $userData['owned_achievement_codes'];
+
+                dd($userData);
+            }
     }
 }

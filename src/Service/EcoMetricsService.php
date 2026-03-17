@@ -5,14 +5,13 @@ namespace App\Service;
 use App\Repository\UserActionRepository;
 use App\ValueObject\WeekRange;
 use App\Entity\User;
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\UserAchievementRepository;
 
 class EcoMetricsService
 {
     public function __construct(
         private UserActionRepository $userActionRepository,
-        private UserRepository $userRepository,
+        private UserAchievementRepository $userAchievementRepository,
     ) 
     {
 
@@ -108,6 +107,7 @@ class EcoMetricsService
     public function getSummaryByAllUsers(): array
     {
         $actions = $this->userActionRepository->findAllActionWithUserAndCategory();
+        $userAchievements = $this->userAchievementRepository->findAllWithUserAndAchievement();
 
         $actionsByUsers = [];
 
@@ -116,12 +116,22 @@ class EcoMetricsService
             $actionsByUsers[$userId][] = $action;
         }
 
+        $ownedAchievementsByUser = [];
+
+        foreach ($userAchievements as $userAchievement) {
+            $userId = $userAchievement->getUser()->getId();
+            $achievementCode = $userAchievement->getAchievement()->getCode();
+
+            $ownedAchievementsByUser[$userId][] = $achievementCode;
+        }
+
         $summaryByUsers = [];
 
         foreach ($actionsByUsers as $userId => $userActions) {
             $summaryByUsers[] = [
                 'user_id' => $userId,
                 'summary' => $this->buildSummaryFromUserActions($userActions),
+                'owned_achievement_codes' => $ownedAchievementsByUser[$userId] ?? [],
             ];
         }
 
