@@ -205,6 +205,49 @@ class EcoMetricsService
         array $rules
     ): array
     {
-        return [];
+        $summary = [];
+
+        // Initialise toutes les clés attendues depuis les rules
+        foreach ($rules as $rule) {
+            $type = $rule['type'];
+
+            if (!isset($summary[$type])) {
+                $summary[$type] = 0;
+            }
+        }
+
+        // Valeurs globales
+        $summary['achievement_count'] = $achievementCount;
+        $summary['victory_count'] = $winstreak;
+        $summary['total_score'] = $summary['total_score'] ?? 0;
+
+        // Mapping entre nom de catégorie et type d'achievement
+        $categoryTypeMap = [
+            'Déplacement' => 'category_deplacement',
+            'Alimentation' => 'category_alimentation',
+            'Consommation' => 'category_consommation',
+            'Énergie' => 'category_energie',
+            'Energie' => 'category_energie',
+            'Numérique' => 'category_numerique',
+            'Numerique' => 'category_numerique',
+            'Déchets' => 'category_dechets',
+            'Dechets' => 'category_dechets',
+            'Engagement écologique' => 'category_engagement_ecologique',
+            'Engagement ecologique' => 'category_engagement_ecologique',
+        ];
+
+        foreach ($userActions as $userAction) {
+            $score = (int) $userAction->getScore();
+            $summary['total_score'] += $score;
+
+            $categoryName = $userAction->getCategory()?->getName();
+
+            if ($categoryName && isset($categoryTypeMap[$categoryName])) {
+                $categoryType = $categoryTypeMap[$categoryName];
+                $summary[$categoryType] += $score;
+            }
+        }
+
+        return $summary;
     }
 }

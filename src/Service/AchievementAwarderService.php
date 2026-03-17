@@ -21,8 +21,17 @@ class AchievementAwarderService
                 $userId = $userData['user_id'];
                 $summary = $userData['summary'];
                 $ownedCodes = $userData['owned_achievement_codes'];
+                $rules = $userData['rules'];
 
-                dd($userData);
+                foreach ($rules as $rule) {
+                    $type = $rule['type'];
+                    $code = $rule['code'];
+                    $threshold = $rule['threshold'];
+
+                    if ($summary[$type] >= $threshold) {
+                        
+                    }
+                }
             }
     }
 }
