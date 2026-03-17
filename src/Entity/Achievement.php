@@ -31,6 +31,15 @@ class Achievement
     #[ORM\OneToMany(targetEntity: UserAchievement::class, mappedBy: 'achievement')]
     private Collection $userAchievements;
 
+    #[ORM\Column(length: 255)]
+    private ?string $code = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $threshold = null;
+
     public function __construct()
     {
         $this->userAchievements = new ArrayCollection();
@@ -103,6 +112,42 @@ class Achievement
                 $userAchievement->setAchievement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): static
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getThreshold(): ?string
+    {
+        return $this->threshold;
+    }
+
+    public function setThreshold(string $threshold): static
+    {
+        $this->threshold = $threshold;
 
         return $this;
     }
