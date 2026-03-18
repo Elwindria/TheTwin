@@ -9,7 +9,7 @@ use App\Entity\UserAchievement;
 use Doctrine\ORM\EntityManagerInterface;
 
 
-class AchievementAwarderService
+class WeeklyResolutionService
 {
     public function __construct(
         private EcoMetricsService $ecoMetricsService,
