@@ -449,6 +449,143 @@
     padding: 48px 0;
 }
 
+/* ===== Objectif Mensuel ===== */
+.monthly-goal-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 24px 28px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.monthly-goal-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.monthly-goal-card__title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.monthly-goal-card__btn-edit {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-family: inherit;
+    color: #555;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+}
+
+.monthly-goal-card__btn-edit:hover {
+    border-color: #3cb16f;
+    color: #3cb16f;
+}
+
+/* ligne d'édition inline */
+.monthly-goal-card__edit-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.monthly-goal-card__input {
+    width: 80px;
+    border: 1px solid #3cb16f;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+}
+
+.monthly-goal-card__btn-save {
+    background: #3cb16f;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.monthly-goal-card__btn-cancel {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-family: inherit;
+    color: #888;
+    cursor: pointer;
+}
+
+/* barre de progression */
+.monthly-goal-card__bar-track {
+    width: 100%;
+    height: 14px;
+    background: #e8e8e8;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.monthly-goal-card__bar-fill {
+    height: 100%;
+    background: #3cb16f;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+}
+
+/* légende : économisés — % — objectif */
+.monthly-goal-card__legend {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #888;
+}
+
+.monthly-goal-card__percent {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+/* bloc motivation */
+.monthly-goal-card__tip {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #f5faf7;
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+
+.monthly-goal-card__tip-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.monthly-goal-card__tip p {
+    margin: 0;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.5;
+}
+
 /* ===== Formulaire d'édition du profil ===== */
 
 /* Bloc avatar dans le formulaire d'édition */

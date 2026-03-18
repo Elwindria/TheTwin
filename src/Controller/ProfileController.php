@@ -7,6 +7,7 @@ use App\Repository\UserActionRepository;
 use App\Service\AvatarUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -135,10 +136,32 @@ class ProfileController extends AbstractController
             'co2Trend'         => $co2Trend,
             'actionsTrend'     => $actionsTrend,
             'rankChange'       => $rankChange,
+            'co2ThisMonth'      => $co2ThisMonth,
+            'monthlyGoalCo2'    => $user->getMonthlyGoalCo2(),
             'monthlyCo2'        => $monthlyCo2,
             'co2ByCategoryData' => $co2ByCategoryData,
             'allActionsData'    => $allActionsData,
         ]);
+    }
+
+    #[Route('/profile/goal', name: 'app_profile_goal', methods: ['POST'])]
+    public function updateGoal(Request $request, EntityManagerInterface $em): JsonResponse
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+        $data = json_decode($request->getContent(), true);
+
+        $goal = isset($data['goal']) ? (int) $data['goal'] : null;
+
+        // on refuse les valeurs négatives ou absurdes (max 1000 kg)
+        if ($goal !== null && ($goal < 0 || $goal > 1000000)) {
+            return $this->json(['error' => 'Valeur invalide'], 400);
+        }
+
+        $user->setMonthlyGoalCo2($goal);
+        $em->flush();
+
+        return $this->json(['success' => true, 'goal' => $goal]);
     }
 
     #[Route('/profile/edit', name: 'app_profile_edit')]

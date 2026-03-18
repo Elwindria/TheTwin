@@ -52,6 +52,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatarFilename = null;
 
+    // objectif CO2 mensuel de l'utilisateur, en grammes (null = pas encore défini)
+    #[ORM\Column(nullable: true)]
+    private ?int $monthlyGoalCo2 = null;
+
     /**
      * @var Collection<int, UserAction>
      */
@@ -182,6 +186,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAvatarFilename(?string $avatarFilename): static
     {
         $this->avatarFilename = $avatarFilename;
+
+        return $this;
+    }
+
+    public function getMonthlyGoalCo2(): ?int
+    {
+        return $this->monthlyGoalCo2;
+    }
+
+    public function setMonthlyGoalCo2(?int $monthlyGoalCo2): static
+    {
+        $this->monthlyGoalCo2 = $monthlyGoalCo2;
 
         return $this;
     }
