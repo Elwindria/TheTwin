@@ -3,6 +3,7 @@ import ProfileHeader from '../../components/profile/ProfileHeader';
 import ProfileTabs from '../../components/profile/ProfileTabs';
 import StatsOverview from '../../components/profile/StatsOverview';
 import Co2Tab from '../../components/profile/Co2Tab';
+import HistoriqueTab from '../../components/profile/HistoriqueTab';
 
 export default function ProfilePage({ editUrl, firstName, lastName, username, avatarUrl, totalCo2, totalActions, currentRank, co2Trend, actionsTrend, rankChange, monthlyCo2, co2ByCategoryData, allActionsData }) {
     const [activeTab, setActiveTab] = useState('overview');
@@ -28,6 +29,8 @@ export default function ProfilePage({ editUrl, firstName, lastName, username, av
                         allActionsData={allActionsData}
                     />
                 );
+            case 'history':
+                return <HistoriqueTab allActionsData={allActionsData} />;
             default:
                 return <p className="profil-tab-placeholder">Bientôt disponible</p>;
         }

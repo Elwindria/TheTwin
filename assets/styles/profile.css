@@ -317,6 +317,138 @@
     width: 100%;
 }
 
+/* ===== Tab Historique ===== */
+.historique-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* barre de recherche + filtre catégorie */
+.historique-filters {
+    background: #fff;
+    border-radius: 14px;
+    padding: 16px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.historique-search {
+    flex: 1;
+    min-width: 180px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.historique-search:focus {
+    border-color: #3cb16f;
+}
+
+.historique-select {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    background: #fff;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.historique-select:focus {
+    border-color: #3cb16f;
+}
+
+.historique-count {
+    margin-left: auto;
+    font-size: 12px;
+    color: #aaa;
+    white-space: nowrap;
+}
+
+/* liste des actions */
+.historique-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.historique-item {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.historique-item__left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.historique-item__date {
+    font-size: 11px;
+    color: #aaa;
+    font-weight: 500;
+}
+
+.historique-item__name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.historique-item__category {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: #e6f4ed;
+    color: #26844f;
+    width: fit-content;
+}
+
+.historique-item__right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.historique-item__co2 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #3cb16f;
+}
+
+.historique-item__score {
+    font-size: 12px;
+    color: #888;
+    font-weight: 500;
+}
+
+.historique-empty {
+    text-align: center;
+    color: #aaa;
+    font-size: 14px;
+    padding: 48px 0;
+}
+
 /* ===== Formulaire d'édition du profil ===== */
 
 /* Bloc avatar dans le formulaire d'édition */

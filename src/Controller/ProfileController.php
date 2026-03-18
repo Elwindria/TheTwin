@@ -112,12 +112,17 @@ class ProfileController extends AbstractController
             array_values($co2ByCategory)
         );
 
-        // toutes les actions avec les champs nécessaires pour le filtre par période côté React
+        // toutes les actions avec les champs nécessaires pour le filtre CO2 et l'historique côté React
         $allActionsData = array_map(fn($ua) => [
-            'date'     => $ua->getCreatedAt()->format('Y-m-d'),
-            'co2'      => (float) $ua->getFinalCo2Saved(),
-            'category' => $ua->getCategory()->getName(),
+            'date'       => $ua->getCreatedAt()->format('Y-m-d'),
+            'co2'        => (float) $ua->getFinalCo2Saved(),
+            'category'   => $ua->getCategory()->getName(),
+            'actionName' => $ua->getEcoAction()->getName(),
+            'score'      => $ua->getScore(),
         ], $allActions);
+
+        // on trie par date décroissante pour l'historique (les plus récentes en premier)
+        usort($allActionsData, fn($a, $b) => strcmp($b['date'], $a['date']));
 
         return $this->render('profile/index.html.twig', [
             'firstName'        => $user->getFirstName(),

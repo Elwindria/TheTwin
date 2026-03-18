@@ -3,7 +3,6 @@ const TABS = [
     { key: 'badges',    label: 'Mes Badges' },
     { key: 'co2',       label: 'Économies CO2' },
     { key: 'history',   label: 'Historique' },
-    { key: 'settings',  label: 'Paramètres' },
 ];
 
 export default function ProfileTabs({ activeTab, setActiveTab }) {
