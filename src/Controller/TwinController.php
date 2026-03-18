@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use App\Service\AchievementAwarderService;
 
 #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
 final class TwinController extends AbstractController
@@ -15,7 +14,6 @@ final class TwinController extends AbstractController
     #[Route('/twin', name: 'app_twin')]
     public function index(
         CategoryRepository $categoryRepository,
-        AchievementAwarderService $AchievementAwarderService
     ): Response
     {
         $categories = $categoryRepository->findAll();
