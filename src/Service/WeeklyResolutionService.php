@@ -24,7 +24,7 @@ class WeeklyResolutionService
 
     public function resolveCurrentWeek(): void
     {
-        $week = WeekRange::current();
+        $week = WeekRange::lastCompleteWeek();
     }
 
     public function awardAchievementByUsers(): void
