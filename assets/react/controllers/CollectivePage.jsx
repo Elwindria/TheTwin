@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import collectifImage from '../../images/collectifImage.png';
 
-// ── Utilitaire : temps relatif ──────────────────────────────────────────────
+// Utilitaire : temps relatif
 function timeAgo(dateString) {
     const now = new Date();
     const date = new Date(dateString);
@@ -19,12 +19,12 @@ function timeAgo(dateString) {
 // Icône catégorie
 function CategoryIcon({ category }) {
     const icons = {
-        'Déplacement':    '🚲',
-        'Alimentation':   '🥗',
-        'Numérique':      '💻',
-        'Consommation':   '♻️',
+        'Déplacement':    '',
+        'Alimentation':   '',
+        'Numérique':      '',
+        'Consommation':   '',
     };
-    const icon = icons[category] ?? '🌱';
+    const icon = icons[category] ?? '';
     return (
         <div className="collective-action__icon">
             {icon}
@@ -67,11 +67,12 @@ export default function CollectivePage({
     totalScore = 0,
     totalCo2Saved = 0,
     totalTwinCo2 = 0,
+    weeklyScore = 0,
     activeUsersCount = 0,
     recentActions = [],
 }) {
     // Objectif hebdo fictif pour la barre de progression (à brancher plus tard)
-    const weeklyGoal = Math.max(totalScore * 1.2, 100);
+    const weeklyGoal = Math.max(weeklyScore * 1.2, 100);
     const progressPct = weeklyGoal > 0
         ? Math.min(100, Math.round((totalScore / weeklyGoal) * 100))
         : 0;
@@ -103,7 +104,7 @@ export default function CollectivePage({
                 <div className="collective-header">
                     <h2 className="collective-header__title">Tableau de bord</h2>
                     <span className="collective-header__badge">
-                        👥 {activeUsersCount} membre{activeUsersCount > 1 ? 's' : ''} actif{activeUsersCount > 1 ? 's' : ''}
+                         {activeUsersCount} membre{activeUsersCount > 1 ? 's' : ''} actif{activeUsersCount > 1 ? 's' : ''}
                     </span>
                 </div>
 
