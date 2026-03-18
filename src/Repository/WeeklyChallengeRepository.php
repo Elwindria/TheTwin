@@ -16,28 +16,16 @@ class WeeklyChallengeRepository extends ServiceEntityRepository
         parent::__construct($registry, WeeklyChallenge::class);
     }
 
-    //    /**
-    //     * @return WeeklyChallenge[] Returns an array of WeeklyChallenge objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('w')
-    //            ->andWhere('w.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('w.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?WeeklyChallenge
-    //    {
-    //        return $this->createQueryBuilder('w')
-    //            ->andWhere('w.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findOneByPeriod(
+        \DateTimeImmutable $start,
+        \DateTimeImmutable $end
+    ): ?WeeklyChallenge {
+        return $this->createQueryBuilder('wc')
+            ->where('wc.startAt = :start')
+            ->andWhere('wc.endAt = :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

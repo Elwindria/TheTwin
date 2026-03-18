@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use App\Repository\AchievementRepository;
 use App\Service\EcoMetricsService;
 use App\Entity\UserAchievement;
+use App\Repository\WeeklyChallengeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\ValueObject\WeekRange;
 
@@ -17,20 +18,37 @@ class WeeklyResolutionService
         private UserRepository $userRepository,
         private AchievementRepository $achievementRepository,
         private EntityManagerInterface $entityManager,
+        private WeeklyChallengeRepository $weeklyChallengeRepository
     ) 
     {
 
     }
 
+    public function getDataByUsers(): array
+    {
+        return $this->ecoMetricsService->getSummaryByAllUsers();
+    }
+
     public function resolveCurrentWeek(): void
     {
         $week = WeekRange::lastCompleteWeek();
+
+        $weeklyChallenge = $this->weeklyChallengeRepository->findOneByPeriod(
+            $week->getStart(),
+            $week->getEnd()
+        );
+
+        if (!$weeklyChallenge) {
+            throw new \RuntimeException('Aucun WeeklyChallenge trouvé pour la semaine courante.');
+        }
+
+        
     }
 
-    public function awardAchievementByUsers(): void
-    {
-        $dataByUsers = $this->ecoMetricsService->getSummaryByAllUsers();
 
+
+    public function awardAchievementByUsers(array $dataByUsers): void
+    {
         foreach ($dataByUsers as $userData) {
             $userId = $userData['user_id'];
             $summary = $userData['summary'];

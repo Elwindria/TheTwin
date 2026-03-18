@@ -75,4 +75,18 @@ class UserActionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getTotalScoreForWeek(
+        \DateTimeImmutable $start,
+        \DateTimeImmutable $end
+    ): int {
+        return (int) $this->createQueryBuilder('ua')
+            ->select('COALESCE(SUM(ua.score), 0)')
+            ->where('ua.createdAt >= :start')
+            ->andWhere('ua.createdAt < :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
