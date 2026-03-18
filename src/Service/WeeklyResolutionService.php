@@ -6,6 +6,8 @@ use App\Repository\UserRepository;
 use App\Repository\AchievementRepository;
 use App\Service\EcoMetricsService;
 use App\Entity\UserAchievement;
+use App\Entity\WeeklyChallenge;
+use App\Repository\UserActionRepository;
 use App\Repository\WeeklyChallengeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\ValueObject\WeekRange;
@@ -18,7 +20,8 @@ class WeeklyResolutionService
         private UserRepository $userRepository,
         private AchievementRepository $achievementRepository,
         private EntityManagerInterface $entityManager,
-        private WeeklyChallengeRepository $weeklyChallengeRepository
+        private WeeklyChallengeRepository $weeklyChallengeRepository,
+        private UserActionRepository $userActionRepository
     ) 
     {
 
@@ -42,10 +45,24 @@ class WeeklyResolutionService
             throw new \RuntimeException('Aucun WeeklyChallenge trouvé pour la semaine courante.');
         }
 
-        
+        $actualScore = $this->userActionRepository->getTotalScoreForWeek(
+            $week->getStart(),
+            $week->getEnd()
+        );
+
+        $this->setVictory($actualScore, $weeklyChallenge);
+
+        $this->entityManager->flush();
     }
 
+    private function setVictory(int $actualScore, WeeklyChallenge $weeklyChallenge): void
+    {
+        $hasWon = $actualScore >= $weeklyChallenge->getTargetScore();
 
+        $weeklyChallenge->setActualScore((string) $actualScore);
+        $weeklyChallenge->setHasWon($hasWon);
+        $weeklyChallenge->setIsResolved(true);
+    }
 
     public function awardAchievementByUsers(array $dataByUsers): void
     {
@@ -80,7 +97,5 @@ class WeeklyResolutionService
                 }
             }
         }
-
-        $this->entityManager->flush();
     }
 }

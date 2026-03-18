@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\WeeklyChallenge;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use DateTimeImmutable;
 
 /**
  * @extends ServiceEntityRepository<WeeklyChallenge>
