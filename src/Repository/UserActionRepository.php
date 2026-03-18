@@ -89,19 +89,4 @@ class UserActionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
-
-    public function findDistinctUsersForWeek(
-        \DateTimeImmutable $start,
-        \DateTimeImmutable $end
-    ): array {
-        return $this->createQueryBuilder('ua')
-            ->select('DISTINCT u')
-            ->join('ua.user', 'u')
-            ->where('ua.createdAt >= :start')
-            ->andWhere('ua.createdAt < :end')
-            ->setParameter('start', $start)
-            ->setParameter('end', $end)
-            ->getQuery()
-            ->getResult();
-    }
 }

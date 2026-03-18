@@ -71,7 +71,7 @@ class WeeklyResolutionService
     ): void
     {
         //trouve les users qui ont au moins 1 actions dans la semaine
-        $users = $this->userActionRepository->findDistinctUsersForWeek(
+        $users = $this->userRepository->findDistinctUsersForWeek(
             $week->getStart(),
             $week->getEnd()
         );

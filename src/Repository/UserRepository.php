@@ -40,4 +40,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getArrayResult();
     }
+
+    public function findDistinctUsersForWeek(
+        \DateTimeImmutable $start,
+        \DateTimeImmutable $end
+    ): array {
+        return $this->createQueryBuilder('u')
+            ->distinct()
+            ->innerJoin('u.userActions', 'ua')
+            ->where('ua.createdAt >= :start')
+            ->andWhere('ua.createdAt < :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery()
+            ->getResult();
+    }
 }
