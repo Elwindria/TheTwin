@@ -50,18 +50,39 @@ class WeeklyResolutionService
             $week->getEnd()
         );
 
-        $this->setVictory($actualScore, $weeklyChallenge);
+        $hasWon = $actualScore >= $weeklyChallenge->getTargetScore();
+
+        $this->setVictory($actualScore, $weeklyChallenge, $hasWon);
+        $hasWon ? $this->incrementWinStreakForParticipantsOfLastCompleteWeek($week) : null;
 
         $this->entityManager->flush();
     }
 
-    private function setVictory(int $actualScore, WeeklyChallenge $weeklyChallenge): void
+    private function setVictory(
+        int $actualScore,
+        WeeklyChallenge $weeklyChallenge,
+        bool $hasWon
+    ): void
     {
-        $hasWon = $actualScore >= $weeklyChallenge->getTargetScore();
-
         $weeklyChallenge->setActualScore((string) $actualScore);
         $weeklyChallenge->setHasWon($hasWon);
         $weeklyChallenge->setIsResolved(true);
+    }
+
+    public function incrementWinStreakForParticipantsOfLastCompleteWeek(
+        WeekRange $week,
+    ): void
+    {
+        //trouve les users qui ont au moins 1 actions dans la semaine
+        $users = $this->userActionRepository->findDistinctUsersForWeek(
+            $week->getStart(),
+            $week->getEnd()
+        );
+
+        foreach ($users as $user) {
+            $currentWinStreak = $user->getWinstreak() ?? 0;
+            $user->setWinstreak($currentWinStreak + 1);
+        }
     }
 
     public function awardAchievementByUsers(array $dataByUsers): void
