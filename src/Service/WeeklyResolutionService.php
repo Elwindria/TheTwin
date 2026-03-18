@@ -7,6 +7,7 @@ use App\Repository\AchievementRepository;
 use App\Service\EcoMetricsService;
 use App\Entity\UserAchievement;
 use Doctrine\ORM\EntityManagerInterface;
+use App\ValueObject\WeekRange;
 
 
 class WeeklyResolutionService
@@ -19,6 +20,11 @@ class WeeklyResolutionService
     ) 
     {
 
+    }
+
+    public function resolveCurrentWeek(): void
+    {
+        $week = WeekRange::current();
     }
 
     public function awardAchievementByUsers(): void
