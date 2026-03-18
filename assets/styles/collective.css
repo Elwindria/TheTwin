@@ -1,0 +1,273 @@
+/* ── Layout principal ── */
+.collective-page {
+    display: flex;
+    min-height: 80vh;
+}
+
+/* ── Panneaux ── */
+.collective-panel {
+    width: 50%;
+}
+
+.collective-panel--left {
+    position: relative;
+    overflow: hidden;
+    background-color: #1a2e1a;
+}
+
+.collective-panel__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.75;
+}
+
+.collective-panel__overlay {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 2.5rem;
+    right: 2.5rem;
+}
+
+.collective-panel__title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin: 0 0 0.5rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.collective-panel__sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.85);
+    margin: 0;
+}
+
+.collective-panel--right {
+    background-color: #f7f7f5;
+    padding: 2.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* ── En-tête ── */
+.collective-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+}
+
+.collective-header__title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #0F172A;
+    margin: 0;
+}
+
+.collective-header__badge {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background-color: #e8f5ee;
+    color: #3CB16F;
+    border-radius: 20px;
+    padding: 0.35rem 0.85rem;
+}
+
+/* ── Cartes stats ── */
+.collective-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.collective-stat-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.collective-stat-card__label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.collective-stat-card__value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #0F172A;
+    line-height: 1.1;
+}
+
+.collective-stat-card__unit {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748B;
+}
+
+.collective-stat-card__sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    color: #94A3B8;
+}
+
+/* ── Carte générique ── */
+.collective-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.25rem 1.4rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.collective-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.collective-card__title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0F172A;
+}
+
+.collective-card__badge {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 0.25rem 0.75rem;
+}
+
+.collective-card__badge--green {
+    background-color: #e8f5ee;
+    color: #3CB16F;
+}
+
+.collective-card__hint {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    color: #94A3B8;
+    margin: 0;
+}
+
+/* ── Barre de progression ── */
+.collective-progress {
+    width: 100%;
+    height: 8px;
+    background-color: #E2E8F0;
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.collective-progress__fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.5s ease;
+}
+
+/* ── Liste des actions ── */
+.collective-actions-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.collective-action {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.collective-action__icon {
+    width: 2.2rem;
+    height: 2.2rem;
+    background-color: #f0faf4;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.collective-action__body {
+    flex: 1;
+    min-width: 0;
+}
+
+.collective-action__text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    color: #0F172A;
+    margin: 0 0 0.15rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.collective-action__meta {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    color: #94A3B8;
+    margin: 0;
+}
+
+.collective-action__score {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #3CB16F;
+    flex-shrink: 0;
+}
+
+/* ── État vide ── */
+.collective-empty {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    color: #94A3B8;
+    text-align: center;
+    padding: 1rem 0;
+    margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .collective-page {
+        flex-direction: column;
+    }
+
+    .collective-panel {
+        width: 100%;
+    }
+
+    .collective-panel--left {
+        min-height: 200px;
+    }
+
+    .collective-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Collectif — The Twin{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('collective') }}
+{% endblock %}
+
+{% block body %}
+    <div {{ react_component('CollectivePage', {
+        totalScore: totalScore,
+        totalCo2Saved: totalCo2Saved,
+        totalTwinCo2: totalTwinCo2,
+        activeUsersCount: activeUsersCount,
+        recentActions: recentActions
+    }) }}>
+        Chargement...
+    </div>
+{% endblock %}
