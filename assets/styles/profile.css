@@ -557,3 +557,77 @@
 .btn-save:hover {
     background: #26844f;
 }
+
+/* ===== Responsive ===== */
+
+/* Tablette (≤ 768px) */
+@media (max-width: 768px) {
+    .profil-page {
+        padding: 24px 16px;
+    }
+
+    /* header card : avatar + info en haut, bouton en bas pleine largeur */
+    .profil-header-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 16px;
+        gap: 16px;
+    }
+
+    .profil-edit-btn {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    /* stats : 1 colonne */
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* tabs : scroll horizontal si ça déborde */
+    .profil-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 0;
+    }
+
+    .profil-tab {
+        padding: 10px 14px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    /* filtre CO2 : inputs en colonne */
+    .co2-filter {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+    }
+
+    .co2-filter__total {
+        margin-left: 0;
+    }
+
+    /* historique item : CO2 et score côte à côte en bas */
+    .historique-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .historique-item__right {
+        align-items: flex-start;
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    /* formulaire edit : 1 colonne */
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card {
+        padding: 24px 16px;
+    }
+}
