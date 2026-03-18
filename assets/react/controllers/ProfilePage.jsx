@@ -2,8 +2,9 @@ import { useState } from 'react';
 import ProfileHeader from '../../components/profile/ProfileHeader';
 import ProfileTabs from '../../components/profile/ProfileTabs';
 import StatsOverview from '../../components/profile/StatsOverview';
+import Co2Tab from '../../components/profile/Co2Tab';
 
-export default function ProfilePage({ editUrl, firstName, lastName, username, avatarUrl, totalCo2, totalActions, currentRank, co2Trend, actionsTrend, rankChange }) {
+export default function ProfilePage({ editUrl, firstName, lastName, username, avatarUrl, totalCo2, totalActions, currentRank, co2Trend, actionsTrend, rankChange, monthlyCo2, co2ByCategoryData, allActionsData }) {
     const [activeTab, setActiveTab] = useState('overview');
 
     const renderTab = () => {
@@ -19,7 +20,14 @@ export default function ProfilePage({ editUrl, firstName, lastName, username, av
                         rankChange={rankChange}
                     />
                 );
-            // les autres onglets seront ajoutés plus tard
+            case 'co2':
+                return (
+                    <Co2Tab
+                        monthlyCo2={monthlyCo2}
+                        co2ByCategoryData={co2ByCategoryData}
+                        allActionsData={allActionsData}
+                    />
+                );
             default:
                 return <p className="profil-tab-placeholder">Bientôt disponible</p>;
         }

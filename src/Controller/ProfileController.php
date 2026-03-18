@@ -84,17 +84,55 @@ class ProfileController extends AbstractController
         // positif = on a gagné des places
         $rankChange = $lastMonthRank - $currentRank;
 
+        // CO2 par mois sur les 6 derniers mois (pour le graphique)
+        $monthlyCo2 = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $monthDate  = $now->modify("-$i months");
+            $y          = (int) $monthDate->format('Y');
+            $m          = (int) $monthDate->format('n');
+            $start      = new \DateTimeImmutable("$y-$m-01 00:00:00");
+            $end        = $start->modify('first day of next month');
+            $actions    = $userActionRepo->getAllWeeklyUserActionsForUser($user, $start, $end);
+            $co2        = array_sum(array_map(fn($ua) => (float) $ua->getFinalCo2Saved(), $actions));
+            $monthlyCo2[] = [
+                'month' => $monthDate->format('M'),
+                'co2'   => round($co2 / 1000, 2), // on affiche en kg dans le graphique
+            ];
+        }
+
+        // CO2 par catégorie (pour le graphique en barres)
+        $co2ByCategory = [];
+        foreach ($allActions as $ua) {
+            $cat = $ua->getCategory()->getName();
+            $co2ByCategory[$cat] = ($co2ByCategory[$cat] ?? 0) + (float) $ua->getFinalCo2Saved();
+        }
+        $co2ByCategoryData = array_map(
+            fn($name, $co2) => ['category' => $name, 'co2' => round($co2 / 1000, 2)],
+            array_keys($co2ByCategory),
+            array_values($co2ByCategory)
+        );
+
+        // toutes les actions avec les champs nécessaires pour le filtre par période côté React
+        $allActionsData = array_map(fn($ua) => [
+            'date'     => $ua->getCreatedAt()->format('Y-m-d'),
+            'co2'      => (float) $ua->getFinalCo2Saved(),
+            'category' => $ua->getCategory()->getName(),
+        ], $allActions);
+
         return $this->render('profile/index.html.twig', [
-            'firstName'    => $user->getFirstName(),
-            'lastName'     => $user->getLastName(),
-            'username'     => $user->getUsername(),
-            'avatarUrl'    => $avatarUrl,
-            'totalCo2'     => $totalCo2,
-            'totalActions' => $totalActions,
-            'currentRank'  => $currentRank,
-            'co2Trend'     => $co2Trend,
-            'actionsTrend' => $actionsTrend,
-            'rankChange'   => $rankChange,
+            'firstName'        => $user->getFirstName(),
+            'lastName'         => $user->getLastName(),
+            'username'         => $user->getUsername(),
+            'avatarUrl'        => $avatarUrl,
+            'totalCo2'         => $totalCo2,
+            'totalActions'     => $totalActions,
+            'currentRank'      => $currentRank,
+            'co2Trend'         => $co2Trend,
+            'actionsTrend'     => $actionsTrend,
+            'rankChange'       => $rankChange,
+            'monthlyCo2'        => $monthlyCo2,
+            'co2ByCategoryData' => $co2ByCategoryData,
+            'allActionsData'    => $allActionsData,
         ]);
     }
 

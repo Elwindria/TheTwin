@@ -235,6 +235,88 @@
 .trend--up   { color: #3cb16f; }
 .trend--down { color: #e74c3c; }
 
+/* ===== Filtre de période dans le tab CO2 ===== */
+.co2-filter {
+    background: #fff;
+    border-radius: 14px;
+    padding: 16px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.co2-filter__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+}
+
+.co2-filter__input {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    color: #1a1a1a;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.co2-filter__input:focus {
+    border-color: #3cb16f;
+}
+
+.co2-filter__sep {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.co2-filter__total {
+    margin-left: auto;
+    font-size: 13px;
+    color: #555;
+}
+
+.co2-filter__total strong {
+    color: #3cb16f;
+    font-weight: 700;
+}
+
+.co2-empty {
+    text-align: center;
+    color: #aaa;
+    font-size: 13px;
+    padding: 40px 0;
+}
+
+/* ===== Tab Économies CO2 ===== */
+.co2-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.co2-section {
+    background: #fff;
+    border-radius: 14px;
+    padding: 24px 28px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+.co2-section__title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.co2-chart-wrapper {
+    width: 100%;
+}
+
 /* ===== Formulaire d'édition du profil ===== */
 
 /* Bloc avatar dans le formulaire d'édition */
