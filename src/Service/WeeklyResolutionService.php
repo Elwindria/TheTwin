@@ -27,11 +27,6 @@ class WeeklyResolutionService
 
     }
 
-    public function getDataByUsers(): array
-    {
-        return $this->ecoMetricsService->getSummaryByAllUsers();
-    }
-
     public function resolveCurrentWeek(): void
     {
         $week = WeekRange::lastCompleteWeek();
@@ -54,6 +49,8 @@ class WeeklyResolutionService
 
         $this->setVictory($actualScore, $weeklyChallenge, $hasWon);
         $hasWon ? $this->incrementWinStreakForParticipantsOfLastCompleteWeek($week) : null;
+        $this->createNewWeeklyChallenge($actualScore);
+        $this->awardAchievementByUsers();
 
         $this->entityManager->flush();
     }
@@ -85,8 +82,46 @@ class WeeklyResolutionService
         }
     }
 
-    public function awardAchievementByUsers(array $dataByUsers): void
+    public function createNewWeeklyChallenge(int $actualScore): void
     {
+        $week = WeekRange::current();
+
+        // Base = score de la semaine précédente
+        $baseScore = $actualScore;
+
+        //Réduction fixe -5% pour éviter une incrémentation infini
+        $baseScore = $baseScore * 0.95;
+
+        // Difficulté aléatoire
+        $difficulties = [
+            'easy' => 0.9,
+            'normal' => 1.0,
+            'hard' => 1.2,
+        ];
+
+        $difficulty = array_rand($difficulties);
+        $multiplier = $difficulties[$difficulty];
+
+        //Score final à battre
+        $targetScore = (int) round($baseScore * $multiplier);
+
+        $weeklyChallenge = new WeeklyChallenge();
+        $weeklyChallenge->setStartAt($week->getStart());
+        $weeklyChallenge->setEndAt($week->getEnd());
+        $weeklyChallenge->setTargetScore($targetScore);
+        $weeklyChallenge->setActualScore(0);
+        $weeklyChallenge->setDifficulty($difficulty);
+        $weeklyChallenge->setDifficultyMultiplier($multiplier);
+        $weeklyChallenge->setHasWon(false);
+        $weeklyChallenge->setIsResolved(false);
+
+        $this->entityManager->persist($weeklyChallenge);
+    }
+
+    public function awardAchievementByUsers(): void
+    {
+        $dataByUsers = $this->ecoMetricsService->getSummaryByAllUsers();
+
         foreach ($dataByUsers as $userData) {
             $userId = $userData['user_id'];
             $summary = $userData['summary'];
