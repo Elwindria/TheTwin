@@ -16,7 +16,7 @@ class WeeklyChallengeFixtures extends Fixture
         $weeklyChallenge = new WeeklyChallenge();
         $weeklyChallenge->setStartAt($week->getStart());
         $weeklyChallenge->setEndAt($week->getEnd());
-        $weeklyChallenge->setTargetScore(300);
+        $weeklyChallenge->setTargetScore(10000);
         $weeklyChallenge->setActualScore(0);
         $weeklyChallenge->setDifficulty('normal');
         $weeklyChallenge->setDifficultyMultiplier('1.00');
