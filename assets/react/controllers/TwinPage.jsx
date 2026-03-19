@@ -59,7 +59,7 @@ export default function TwinPage({ actionsData }) {
 
     return (
         <section className="twin-page" id="twin-page">
-            <div id="twin-page-left" className="twin-panel">
+            <div id="twin-page-left" className="twin-panel" style={{ backgroundColor: activeTab === 'twin' ? 'black' : 'unset' }}>
                 <img className={`img ${getTwinImageClass()}`} src={getTwinImage()} alt="Twin" />
             </div>
             <div id="twin-page-right" className="twin-panel">
