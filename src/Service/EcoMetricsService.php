@@ -109,6 +109,31 @@ class EcoMetricsService
         return $summary;
     }
 
+    public function getSummaryAchievementForUser(User $user): array
+    {
+        $userActions      = $this->userActionRepository->getAllUserActionsForUser($user);
+        $userAchievements = $this->userAchievementRepository->findBy(['user' => $user]);
+        $achievements     = $this->achievementRepository->findAllActiveOrdered();
+
+        $ownedCodes      = array_map(fn($ua) => $ua->getAchievement()->getCode(), $userAchievements);
+        $rules           = $this->getRules($achievements);
+        $achievementCount = count($ownedCodes);
+        $winstreak       = $user->getWinstreak() ?? 0;
+
+        $summary = $this->buildSummaryAchievementFromUserActions(
+            $userActions,
+            $achievementCount,
+            $winstreak,
+            $rules
+        );
+
+        return [
+            'summary'                  => $summary,
+            'owned_achievement_codes'  => $ownedCodes,
+            'rules'                    => $rules,
+        ];
+    }
+
     public function getSummaryByAllUsers(): array
     {
         $actions = $this->userActionRepository->findAllActionWithUserAndCategory();

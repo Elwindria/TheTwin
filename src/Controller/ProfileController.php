@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Form\ProfileFormType;
+use App\Repository\AchievementRepository;
+use App\Repository\UserAchievementRepository;
 use App\Repository\UserActionRepository;
 use App\Service\AvatarUploader;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,7 +20,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    public function index(UserActionRepository $userActionRepo): Response
+    public function index(UserActionRepository $userActionRepo, AchievementRepository $achievementRepo, UserAchievementRepository $userAchievementRepo): Response
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
@@ -125,6 +127,61 @@ class ProfileController extends AbstractController
         // on trie par date décroissante pour l'historique (les plus récentes en premier)
         usort($allActionsData, fn($a, $b) => strcmp($b['date'], $a['date']));
 
+        // achievements : tous les badges + ceux débloqués par le user
+        $allAchievements  = $achievementRepo->findAllActiveOrdered();
+        $userAchievements = $userAchievementRepo->findBy(['user' => $user]);
+        $unlockedCodes    = array_map(fn($ua) => $ua->getAchievement()->getCode(), $userAchievements);
+
+        // score actuel par type pour calculer le prochain badge
+        $categoryTypeMap = [
+            'Déplacement' => 'category_deplacement', 'Alimentation' => 'category_alimentation',
+            'Consommation' => 'category_consommation', 'Énergie' => 'category_energie',
+            'Energie' => 'category_energie', 'Numérique' => 'category_numerique',
+            'Numerique' => 'category_numerique', 'Déchets' => 'category_dechets',
+            'Dechets' => 'category_dechets', 'Engagement écologique' => 'category_engagement_ecologique',
+        ];
+        $scoreByType = ['total_score' => $userScore];
+        foreach ($allActions as $ua) {
+            $t = $categoryTypeMap[$ua->getCategory()->getName()] ?? null;
+            if ($t) $scoreByType[$t] = ($scoreByType[$t] ?? 0) + $ua->getScore();
+        }
+
+        $nextBadge = null;
+        $bestProgress = -1;
+        foreach ($allAchievements as $a) {
+            if (in_array($a->getCode(), $unlockedCodes) || $a->getType() === 'victory_count') continue;
+            $current  = $scoreByType[$a->getType()] ?? 0;
+            $progress = $a->getThreshold() > 0 ? $current / $a->getThreshold() : 0;
+            if ($progress < 1.0 && $progress > $bestProgress) {
+                $bestProgress = $progress;
+                $nextBadge = [
+                    'name'        => $a->getName(),
+                    'type'        => $a->getType(),
+                    'threshold'   => $a->getThreshold(),
+                    'currentValue'=> $current,
+                    'progressPct' => round($progress * 100),
+                ];
+            }
+        }
+
+        usort($userAchievements, fn($a, $b) => $b->getAwardedAt() <=> $a->getAwardedAt());
+        $recentBadges = array_map(fn($ua) => [
+            'code'      => $ua->getAchievement()->getCode(),
+            'name'      => $ua->getAchievement()->getName(),
+            'type'      => $ua->getAchievement()->getType(),
+            'awardedAt' => $ua->getAwardedAt()->format('d M Y'),
+        ], array_slice($userAchievements, 0, 3));
+
+        $achievementsData = array_map(fn($a) => [
+            'code'        => $a->getCode(),
+            'name'        => $a->getName(),
+            'description' => $a->getDescription(),
+            'type'        => $a->getType(),
+            'threshold'   => $a->getThreshold(),
+            'imageUrl'    => $a->getImageUrl(),
+            'unlocked'    => in_array($a->getCode(), $unlockedCodes),
+        ], $allAchievements);
+
         return $this->render('profile/index.html.twig', [
             'firstName'        => $user->getFirstName(),
             'lastName'         => $user->getLastName(),
@@ -141,6 +198,9 @@ class ProfileController extends AbstractController
             'monthlyCo2'        => $monthlyCo2,
             'co2ByCategoryData' => $co2ByCategoryData,
             'allActionsData'    => $allActionsData,
+            'achievementsData'  => $achievementsData,
+            'recentBadges'      => $recentBadges,
+            'nextBadge'         => $nextBadge,
         ]);
     }
 

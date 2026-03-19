@@ -37,8 +37,8 @@ class Achievement
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $threshold = null;
+    #[ORM\Column]
+    private ?int $threshold = null;
 
     public function __construct()
     {
@@ -140,12 +140,12 @@ class Achievement
         return $this;
     }
 
-    public function getThreshold(): ?string
+    public function getThreshold(): ?int
     {
         return $this->threshold;
     }
 
-    public function setThreshold(string $threshold): static
+    public function setThreshold(int $threshold): static
     {
         $this->threshold = $threshold;
 
