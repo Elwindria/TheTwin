@@ -6,6 +6,7 @@ use App\Entity\UserAction;
 use App\Repository\CategoryRepository;
 use App\Repository\EcoActionRepository;
 use App\Repository\EcoActionVariantRepository;
+use App\Service\WeeklyResolutionService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,7 +21,8 @@ final class UserActionController extends AbstractController
         CategoryRepository $categoryRepository,
         EcoActionRepository $ecoActionRepository,
         EcoActionVariantRepository $ecoActionVariantRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        WeeklyResolutionService $weeklyResolutionService
     ): JsonResponse {
         $user = $this->getUser();
 
@@ -93,6 +95,8 @@ final class UserActionController extends AbstractController
 
         $entityManager->persist($userAction);
         $entityManager->flush();
+
+        $weeklyResolutionService->awardAchievementsForUser($user);
 
         return $this->json([
             'status' => 'ok',

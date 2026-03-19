@@ -5,8 +5,10 @@ import StatsOverview from '../../components/profile/StatsOverview';
 import MonthlyGoalCard from '../../components/profile/MonthlyGoalCard';
 import Co2Tab from '../../components/profile/Co2Tab';
 import HistoriqueTab from '../../components/profile/HistoriqueTab';
+import BadgesTab from '../../components/profile/BadgesTab';
+import RecentBadgesCard from '../../components/profile/RecentBadgesCard';
 
-export default function ProfilePage({ editUrl, firstName, lastName, username, avatarUrl, totalCo2, totalActions, currentRank, co2Trend, actionsTrend, rankChange, co2ThisMonth, monthlyGoalCo2, monthlyCo2, co2ByCategoryData, allActionsData }) {
+export default function ProfilePage({ editUrl, firstName, lastName, username, avatarUrl, totalCo2, totalActions, currentRank, co2Trend, actionsTrend, rankChange, co2ThisMonth, monthlyGoalCo2, monthlyCo2, co2ByCategoryData, allActionsData, achievementsData, recentBadges, nextBadge }) {
     const [activeTab, setActiveTab] = useState('overview');
 
     const renderTab = () => {
@@ -22,6 +24,7 @@ export default function ProfilePage({ editUrl, firstName, lastName, username, av
                             actionsTrend={actionsTrend}
                             rankChange={rankChange}
                         />
+                        <RecentBadgesCard recentBadges={recentBadges} nextBadge={nextBadge} setActiveTab={setActiveTab} />
                         <MonthlyGoalCard
                             co2ThisMonth={co2ThisMonth}
                             monthlyGoalCo2={monthlyGoalCo2}
@@ -36,6 +39,8 @@ export default function ProfilePage({ editUrl, firstName, lastName, username, av
                         allActionsData={allActionsData}
                     />
                 );
+            case 'badges':
+                return <BadgesTab achievementsData={achievementsData} />;
             case 'history':
                 return <HistoriqueTab allActionsData={allActionsData} />;
             default:
