@@ -19,6 +19,9 @@ final class CollectiveController extends AbstractController
         // Données globales de tous les utilisateurs via le service de Pierre
         $summary = $ecoMetricsService->getSummaryForAllUsers();
 
+        // Données globales de tous les utilisateurs par semaine via le service de Pierre
+        $WeeklySummary = $ecoMetricsService->getWeeklySummaryForAllUsers();
+
         $activeUsersCount = $userActionRepository->createQueryBuilder('ua')
             ->select('COUNT(DISTINCT ua.user)')
             ->where('ua.isAvailable = true')
@@ -52,6 +55,8 @@ final class CollectiveController extends AbstractController
             'totalScore'        => $summary['totalScore'],
             'totalCo2Saved'     => $summary['totalCo2Saved'],
             'totalTwinCo2'      => $summary['totalTwinCo2Produced'],
+            'weeklyScore'       => $WeeklySummary['totalScore'],
+            'weeklyCo2Saved'    => $WeeklySummary['totalCo2Saved'],
             'activeUsersCount'  => (int) $activeUsersCount,
             'recentActions'     => $recentActionsData,
         ]);

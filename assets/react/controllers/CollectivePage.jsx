@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import collectifImage from '../../images/collectifImage.png';
+import iconDeplacement from '../../images/icon-deplacement.png';
+import iconAlimentation from '../../images/icon-alimentation.png';
+import iconNumerique from '../../images/icon-numerique.png';
+import iconConsommation from '../../images/icon-consommation.png';
+import iconDefault from '../../images/icon-default.png';
 
 // Utilitaire : temps relatif
 function timeAgo(dateString) {
@@ -19,15 +24,15 @@ function timeAgo(dateString) {
 // Icône catégorie
 function CategoryIcon({ category }) {
     const icons = {
-        'Déplacement':    '',
-        'Alimentation':   '',
-        'Numérique':      '',
-        'Consommation':   '',
+        'Déplacement':  iconDeplacement,
+        'Alimentation': iconAlimentation,
+        'Numérique':    iconNumerique,
+        'Consommation': iconConsommation,
     };
-    const icon = icons[category] ?? '';
+    const icon = icons[category] ?? iconDefault;
     return (
         <div className="collective-action__icon">
-            {icon}
+           <img src={icon} alt={category} width="32" height="32" />
         </div>
     );
 }
@@ -104,7 +109,7 @@ export default function CollectivePage({
                 <div className="collective-header">
                     <h2 className="collective-header__title">Tableau de bord</h2>
                     <span className="collective-header__badge">
-                         {activeUsersCount} membre{activeUsersCount > 1 ? 's' : ''} actif{activeUsersCount > 1 ? 's' : ''}
+                        {activeUsersCount} membre{activeUsersCount > 1 ? 's' : ''} actif{activeUsersCount > 1 ? 's' : ''}
                     </span>
                 </div>
 
