@@ -16,7 +16,12 @@
 
 .img {
     max-width: 25rem;
-    border-radius: 25px;
+}
+
+.img-twin {
+    mask-image: radial-gradient(ellipse at center, black 0%, black 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 0%, black 40%, transparent 100%);
+    filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.5));
 }
 
 #twin-page-right {
