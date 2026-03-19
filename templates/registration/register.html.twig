@@ -10,7 +10,7 @@
 
         {{ form_errors(registrationForm) }}
 
-        {{ form_start(registrationForm, { attr: { novalidate: 'novalidate' } }) }}
+        {{ form_start(registrationForm, { attr: { novalidate: 'novalidate', enctype: 'multipart/form-data' } }) }}
 
             <div class="form-group">
                 {{ form_label(registrationForm.username, "Nom d'utilisateur") }}
@@ -34,6 +34,12 @@
                 {{ form_label(registrationForm.lastName, 'Nom') }}
                 {{ form_widget(registrationForm.lastName) }}
                 {{ form_errors(registrationForm.lastName) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(registrationForm.avatarFile, 'Photo de profil (optionnel)') }}
+                {{ form_widget(registrationForm.avatarFile) }}
+                {{ form_errors(registrationForm.avatarFile) }}
             </div>
 
             <div class="form-group">

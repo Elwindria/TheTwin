@@ -12,7 +12,25 @@
             <div class="flash-success">{{ message }}</div>
         {% endfor %}
 
-        {{ form_start(form, { attr: { novalidate: 'novalidate' } }) }}
+        {{ form_start(form, { attr: { novalidate: 'novalidate', enctype: 'multipart/form-data' } }) }}
+
+            <p class="profile-section-title">Photo de profil</p>
+
+            <div class="profile-avatar-edit">
+                {% if app.user.avatarFilename %}
+                    <img src="/uploads/avatars/{{ app.user.avatarFilename }}" alt="Avatar" class="profile-avatar-preview">
+                {% else %}
+                    <div class="profile-avatar-preview profile-avatar-preview--placeholder">
+                        {{ app.user.firstName|first }}{{ app.user.lastName|first }}
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    {{ form_widget(form.avatarFile) }}
+                    {{ form_errors(form.avatarFile) }}
+                </div>
+            </div>
+
+            <hr class="profile-divider">
 
             <p class="profile-section-title">Informations personnelles</p>
 
