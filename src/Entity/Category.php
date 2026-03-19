@@ -30,10 +30,17 @@ class Category
     #[ORM\OneToMany(targetEntity: UserAction::class, mappedBy: 'category')]
     private Collection $userActions;
 
+    /**
+     * @var Collection<int, Challenge>
+     */
+    #[ORM\OneToMany(targetEntity: Challenge::class, mappedBy: 'category')]
+    private Collection $challenges;
+
     public function __construct()
     {
         $this->ecoActions = new ArrayCollection();
         $this->userActions = new ArrayCollection();
+        $this->challenges = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,6 +114,36 @@ class Category
             // set the owning side to null (unless already changed)
             if ($userAction->getCategory() === $this) {
                 $userAction->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Challenge>
+     */
+    public function getChallenges(): Collection
+    {
+        return $this->challenges;
+    }
+
+    public function addChallenge(Challenge $challenge): static
+    {
+        if (!$this->challenges->contains($challenge)) {
+            $this->challenges->add($challenge);
+            $challenge->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChallenge(Challenge $challenge): static
+    {
+        if ($this->challenges->removeElement($challenge)) {
+            // set the owning side to null (unless already changed)
+            if ($challenge->getCategory() === $this) {
+                $challenge->setCategory(null);
             }
         }
 
