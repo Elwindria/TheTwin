@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\UserAchievement;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
@@ -49,15 +50,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     private ?string $lastName = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $avatarFilename = null;
+
+    // objectif CO2 mensuel de l'utilisateur, en grammes (null = pas encore défini)
+    #[ORM\Column(nullable: true)]
+    private ?int $monthlyGoalCo2 = null;
+
     /**
      * @var Collection<int, UserAction>
      */
     #[ORM\OneToMany(targetEntity: UserAction::class, mappedBy: 'user')]
     private Collection $userActions;
 
+    /**
+     * @var Collection<int, UserAchievement>
+     */
+    #[ORM\OneToMany(
+        targetEntity: UserAchievement::class,
+        mappedBy: 'user',
+        orphanRemoval: true
+    )]
+    private Collection $userAchievements;
+
+    #[ORM\Column]
+    private ?int $winstreak = 0;
+
     public function __construct()
     {
         $this->userActions = new ArrayCollection();
+        $this->userAchievements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -171,6 +193,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getAvatarFilename(): ?string
+    {
+        return $this->avatarFilename;
+    }
+
+    public function setAvatarFilename(?string $avatarFilename): static
+    {
+        $this->avatarFilename = $avatarFilename;
+
+        return $this;
+    }
+
+    public function getMonthlyGoalCo2(): ?int
+    {
+        return $this->monthlyGoalCo2;
+    }
+
+    public function setMonthlyGoalCo2(?int $monthlyGoalCo2): static
+    {
+        $this->monthlyGoalCo2 = $monthlyGoalCo2;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, UserAction>
      */
@@ -197,6 +243,44 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $userAction->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserAchievement>
+     */
+    public function getUserAchievements(): Collection
+    {
+        return $this->userAchievements;
+    }
+
+    public function addUserAchievement(UserAchievement $userAchievement): static
+    {
+        if (!$this->userAchievements->contains($userAchievement)) {
+            $this->userAchievements->add($userAchievement);
+            $userAchievement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserAchievement(UserAchievement $userAchievement): static
+    {
+        if ($this->userAchievements->removeElement($userAchievement)) {
+        }
+
+        return $this;
+    }
+
+    public function getWinstreak(): ?int
+    {
+        return $this->winstreak;
+    }
+
+    public function setWinstreak(int $winstreak): static
+    {
+        $this->winstreak = $winstreak;
 
         return $this;
     }

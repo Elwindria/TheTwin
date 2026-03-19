@@ -23,6 +23,7 @@
             <a href="{{ path('app_collective') }}">Collaborative</a>
             <a href="{{ path('app_twin') }}">MonTwin</a>
             {% if app.user %}
+                <a href="{{ path('app_profile') }}">Profil</a>
                 <a href="{{ path('app_logout') }}" class="btn-nav">Déconnexion</a>
             {% else %}
                 <a href="{{ path('app_login') }}" class="btn-nav">Compte</a>

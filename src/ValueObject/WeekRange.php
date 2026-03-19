@@ -40,6 +40,14 @@ final class WeekRange
         return self::fromDate(new \DateTimeImmutable(), $timezone);
     }
 
+    public static function lastCompleteWeek(): self
+    {
+        //Cron lance à lundi 00:00 -> faut charger -1j sinon la semaine sera pas la bonne
+        $date = (new \DateTimeImmutable('now'))->modify('-1 days');
+
+        return self::fromDate($date);
+    }
+
     public function getStart(): \DateTimeImmutable
     {
         return $this->start;
