@@ -137,7 +137,6 @@ button:hover {
     margin-bottom: 2rem;
 }
 
-.challenges-header h2 {
 /* Toast  */
 
 /* Twin Status Container */
@@ -155,7 +154,6 @@ button:hover {
     color: #0F172A;
 }
 
-.challenges-header p {
 .twin-status-header p {
     color: #64748B;
     font-size: 0.9rem;
