@@ -118,6 +118,48 @@ class WeeklyResolutionService
         $this->entityManager->persist($weeklyChallenge);
     }
 
+    private const IMMEDIATE_TYPES = [
+        'total_score',
+        'achievement_count',
+        'category_deplacement',
+        'category_alimentation',
+        'category_energie',
+        'category_numerique',
+        'category_consommation',
+        'category_dechets',
+        'category_engagement_ecologique',
+    ];
+
+    public function awardAchievementsForUser(\App\Entity\User $user): void
+    {
+        $data       = $this->ecoMetricsService->getSummaryAchievementForUser($user);
+        $summary    = $data['summary'];
+        $ownedCodes = $data['owned_achievement_codes'];
+        $rules      = $data['rules'];
+
+        foreach ($rules as $rule) {
+            if (!in_array($rule['type'], self::IMMEDIATE_TYPES, true)) {
+                continue;
+            }
+
+            if (($summary[$rule['type']] ?? 0) >= $rule['threshold']
+                && !in_array($rule['code'], $ownedCodes, true))
+            {
+                $achievement = $this->achievementRepository->findOneBy(['code' => $rule['code']]);
+
+                $userAchievement = new UserAchievement();
+                $userAchievement->setUser($user);
+                $userAchievement->setAchievement($achievement);
+                $userAchievement->setAwardedAt(new \DateTimeImmutable());
+
+                $this->entityManager->persist($userAchievement);
+                $ownedCodes[] = $rule['code'];
+            }
+        }
+
+        $this->entityManager->flush();
+    }
+
     public function awardAchievementByUsers(): void
     {
         $dataByUsers = $this->ecoMetricsService->getSummaryByAllUsers();

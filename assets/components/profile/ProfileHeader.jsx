@@ -29,11 +29,8 @@ export default function ProfileHeader({ editUrl, firstName, lastName, username, 
                 <h2 className="profil-name">{firstName} {lastName}</h2>
 
                 <div className="profil-badges-row">
-                    <span className="profil-badge profil-badge--green">◎ Membre Émeraude</span>
                     <span className="profil-since">@{username}</span>
                 </div>
-
-                <p className="profil-title-role">🌲 Protecteur de la Forêt</p>
             </div>
 
             {/* Bouton pour aller sur la page d'édition */}
