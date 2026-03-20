@@ -19,10 +19,16 @@
         <a href="{{ path('app_home') }}" class="nav-logo">
             <img src="{{ asset('medias/thetwin-logo.png') }}" alt="The Twin" height="44">
         </a>
-        <div class="nav-links">
-            <a href="#">Collectif</a>
+        <button class="nav-burger" id="navBurger" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="{{ path('app_collective') }}">Collaborative</a>
             <a href="{{ path('app_twin') }}">MonTwin</a>
             {% if app.user %}
+                <a href="{{ path('app_profile') }}">Profil</a>
                 <a href="{{ path('app_logout') }}" class="btn-nav">Déconnexion</a>
             {% else %}
                 <a href="{{ path('app_login') }}" class="btn-nav">Compte</a>
@@ -30,6 +36,12 @@
         </div>
     </nav>
 
+    <script>
+        document.getElementById('navBurger').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('is-open');
+            this.classList.toggle('is-active');
+        });
+    </script>
     {% block body %}{% endblock %}
 
     <footer class="footer">

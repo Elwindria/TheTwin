@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil — The Twin{% endblock %}
+
+{% block body %}
+    <div {{ react_component('ProfilePage', {
+        editUrl:       path('app_profile_edit'),
+        firstName:     firstName,
+        lastName:      lastName,
+        username:      username,
+        avatarUrl:     avatarUrl,
+        totalCo2:      totalCo2,
+        totalActions:  totalActions,
+        currentRank:   currentRank,
+        co2Trend:      co2Trend,
+        actionsTrend:  actionsTrend,
+        rankChange:        rankChange,
+        co2ThisMonth:      co2ThisMonth,
+        monthlyGoalCo2:    monthlyGoalCo2,
+        monthlyCo2:        monthlyCo2,
+        co2ByCategoryData:  co2ByCategoryData,
+        allActionsData:     allActionsData,
+        achievementsData:   achievementsData,
+        recentBadges:       recentBadges,
+        nextBadge:          nextBadge
+    }) }}>
+        Chargement...
+    </div>
+{% endblock %}

@@ -22,8 +22,10 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
-    
+
     .addStyleEntry('twin', './assets/styles/twin.css')
+
+    .addStyleEntry('collective', './assets/styles/collective.css')
 
     .addAliases({
         '@symfony/stimulus-bridge/controllers.json': path.resolve(__dirname, 'assets/controllers.json'),
