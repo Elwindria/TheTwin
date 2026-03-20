@@ -91,9 +91,7 @@ button:hover {
     background-color: #0F172A;
 }
 
-
-/* Form */
-/* Toast  */
+/* Toast */
 
 .toast-container {
     position: fixed;
@@ -109,7 +107,6 @@ button:hover {
     border-radius: 6px;
     color: #fff;
     font-weight: 500;
-
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -509,6 +506,28 @@ button:hover {
     font-size: 0.75rem;
     font-weight: 600;
 }
+
+/* Twin Status Container */
+.twin-status-container {
+    padding: 1.25rem 0;
+}
+
+.twin-status-header {
+    margin-bottom: 2rem;
+}
+
+.twin-status-header h2 {
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
+    color: #0F172A;
+}
+
+.twin-status-header p {
+    color: #64748B;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
 .twin-status-summary {
     background: #3cb16f;
     border-radius: 15px;

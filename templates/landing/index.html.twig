@@ -4,7 +4,6 @@
 
 {% block body %}
 
-{# ── HERO ── #}
 <section class="hero">
     <div class="hero__left">
         <h1 class="hero__title">
@@ -14,7 +13,7 @@
             The Twin te confronte à une version de toi-même
             qui choisit toujours l'option la plus polluante.
             Chaque semaine, un défi collectif. Pas de
-            compétition, pas de culpabilité — juste de l'action.
+            compétition, pas de culpabilité, juste de l'action.
         </p>
         <div class="hero__badges">
             <span class="badge">Transport</span>
@@ -29,14 +28,12 @@
 
 <hr class="section-divider">
 
-{# ── CONCEPT ── #}
 <section class="concept">
     <p class="section-label">-Le concept</p>
     <h2 class="concept__title">
         Pas de sermon.<br>
         Juste ton <span class="accent">Twin</span> qui flanche.
     </h2>
-
     <div class="steps">
         <div class="step">
             <span class="step__number">01</span>
@@ -71,7 +68,6 @@
     </div>
 </section>
 
-{# ── CTA ── #}
 <section class="cta">
     <p class="section-label">REJOINDRE</p>
     <h2 class="cta__title">
@@ -80,9 +76,9 @@
     </h2>
     <p class="cta__desc">
         Rejoins la première vague d'utilisateurs. C'est gratuit,
-        sans compte complexe, en respectant tes données.
+        sans compte complexe, et tes données ne sont jamais conservées.
     </p>
-    <a href="{{ path('app_register') }}" class="btn-primary">
+    <a href="{{ app.user ? path('app_profile') : path('app_register') }}" class="btn-primary">
         Démarrer →
     </a>
 </section>
