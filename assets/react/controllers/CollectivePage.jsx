@@ -71,18 +71,20 @@ function StatCard({ label, value, unit, sub, accent }) {
 export default function CollectivePage({
     totalScore = 0,
     totalCo2Saved = 0,
-    totalTwinCo2 = 0,
+    // totalTwinCo2 = 0,
+    totalActionsCount = 0,
     weeklyScore = 0,
+    weeklyGoal = 1000,
+    weeklyDifficulty = 'normal',
     activeUsersCount = 0,
     recentActions = [],
 }) {
     // Objectif hebdo fictif pour la barre de progression (à brancher plus tard)
-    const weeklyGoal = Math.max(weeklyScore * 1.2, 100);
     const progressPct = weeklyGoal > 0
-        ? Math.min(100, Math.round((totalScore / weeklyGoal) * 100))
+        ? Math.min(100, Math.round((weeklyScore / weeklyGoal) * 100))
         : 0;
 
-    const co2Diff = (totalTwinCo2 - totalCo2Saved).toFixed(2);
+    // const co2Diff = (totalTwinCo2 - totalCo2Saved).toFixed(2);
 
     return (
         <section className="collective-page">
@@ -129,12 +131,30 @@ export default function CollectivePage({
                         accent="#3CB16F"
                     />
                     <StatCard
-                        label="CO₂ évité"
-                        value={co2Diff > 0 ? `+${co2Diff}` : co2Diff}
-                        unit="kg"
-                        sub="différence Twin"
-                        accent={co2Diff > 0 ? '#3CB16F' : '#8B0000'}
+                        label="Actions réalisées"
+                        value={totalActionsCount.toLocaleString('fr-FR')}
+                        unit=""
+                        sub="par le collectif"
+                        accent="#3CB16F"
                     />
+                </div>
+
+                {/* Défi de la semaine */}
+                <div className="collective-card">
+                    <div className="collective-card__header">
+                        <span className="collective-card__title">Défi de la semaine</span>
+                        <span className={`collective-card__badge ${
+                            weeklyDifficulty === 'facile' ? 'collective-card__badge--green' :
+                            weeklyDifficulty === 'difficile' ? 'collective-card__badge--red' :
+                            'collective-card__badge--orange'
+                        }`}>
+                            {weeklyDifficulty}
+                        </span>
+                    </div>
+                    <p className="collective-card__hint">
+                        Objectif collectif : atteindre {weeklyGoal.toLocaleString('fr-FR')} pts cette semaine.
+                        {progressPct >= 100 && <strong> 🏆 Objectif atteint !</strong>}
+                    </p>
                 </div>
 
                 {/* Progression hebdomadaire */}
@@ -145,9 +165,9 @@ export default function CollectivePage({
                             {progressPct}%
                         </span>
                     </div>
-                    <ProgressBar value={totalScore} max={weeklyGoal} />
+                    <ProgressBar value={weeklyScore} max={weeklyGoal} />
                     <p className="collective-card__hint">
-                        {totalScore.toLocaleString('fr-FR')} / {Math.round(weeklyGoal).toLocaleString('fr-FR')} pts pour battre les Twins
+                        {weeklyScore.toLocaleString('fr-FR')} / {weeklyGoal.toLocaleString('fr-FR')} pts pour battre les Twins
                     </p>
                 </div>
 

@@ -228,3 +228,68 @@
         border-bottom: none;
     }
 }
+
+/* ── Image du Twin ── */
+.hero__img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* .hero__img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
+} */
+
+/* ── Badges améliorés ── */
+.badge {
+    border: 1.5px solid #b0afa8;
+    border-radius: 20px;
+    padding: 7px 18px;
+    font-family: var(--font-main);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: transparent;
+    cursor: default;
+    transition: all 0.2s ease;
+}
+
+.badge:hover {
+    background: var(--color-accent);
+    color: #fff;
+    border-color: var(--color-accent);
+}
+
+/* ── Steps améliorées ── */
+.step {
+    padding: 28px 24px 32px;
+    border-right: 1px solid #3e3e3e;
+    color: var(--color-steps-text);
+    transition: background 0.2s ease;
+}
+
+/* .step:hover {
+    background: #333333;
+} */
+
+.step__number {
+    display: block;
+    font-family: 'Georgia', serif;
+    font-size: 52px;
+    font-style: italic;
+    color: var(--color-accent);
+    opacity: 0.4;
+    text-align: right;
+    line-height: 1;
+    margin-bottom: 16px;
+}
+
+.step__title {
+    font-family: var(--font-main);
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+}

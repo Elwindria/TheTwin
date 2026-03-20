@@ -13,7 +13,7 @@
             The Twin te confronte à une version de toi-même
             qui choisit toujours l'option la plus polluante.
             Chaque semaine, un défi collectif. Pas de
-            compétition, pas de culpabilité — juste de l'action.
+            compétition, pas de culpabilité, juste de l'action.
         </p>
         <div class="hero__badges">
             <span class="badge">Transport</span>
@@ -78,7 +78,7 @@
         Rejoins la première vague d'utilisateurs. C'est gratuit,
         sans compte complexe, et tes données ne sont jamais conservées.
     </p>
-    <a href="{{ path('app_register') }}" class="btn-primary">
+    <a href="{{ app.user ? path('app_profile') : path('app_register') }}" class="btn-primary">
         Démarrer →
     </a>
 </section>

@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Repository\UserActionRepository;
 use App\Service\EcoMetricsService;
+use App\Repository\WeeklyChallengeRepository;
+use App\ValueObject\WeekRange;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -13,9 +15,17 @@ final class CollectiveController extends AbstractController
     #[Route('/collective', name: 'app_collective')]
     public function index(
         UserActionRepository $userActionRepository,
-        EcoMetricsService $ecoMetricsService
+        EcoMetricsService $ecoMetricsService,
+        WeeklyChallengeRepository $weeklyChallengeRepository
     ): Response
     {
+        $week = WeekRange::current();
+        $currentChallenge = $weeklyChallengeRepository->findOneByPeriod(
+            $week->getStart(),
+            $week->getEnd()
+        );
+
+        $weeklyGoal = $currentChallenge ? $currentChallenge->getTargetScore() : 1000;
         // Données globales de tous les utilisateurs via le service de Pierre
         $summary = $ecoMetricsService->getSummaryForAllUsers();
 
@@ -55,8 +65,11 @@ final class CollectiveController extends AbstractController
             'totalScore'        => $summary['totalScore'],
             'totalCo2Saved'     => $summary['totalCo2Saved'],
             'totalTwinCo2'      => $summary['totalTwinCo2Produced'],
+            'totalActionsCount'  => $summary['totalActionsCount'],
             'weeklyScore'       => $WeeklySummary['totalScore'],
             'weeklyCo2Saved'    => $WeeklySummary['totalCo2Saved'],
+            'weeklyGoal'        => $weeklyGoal,
+            'weeklyDifficulty'  => $currentChallenge ? $currentChallenge->getDifficulty() : 'normal',
             'activeUsersCount'  => (int) $activeUsersCount,
             'recentActions'     => $recentActionsData,
         ]);
