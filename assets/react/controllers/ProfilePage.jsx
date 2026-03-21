@@ -8,7 +8,7 @@ import HistoriqueTab from '../../components/profile/HistoriqueTab';
 import BadgesTab from '../../components/profile/BadgesTab';
 import RecentBadgesCard from '../../components/profile/RecentBadgesCard';
 
-export default function ProfilePage({ editUrl, firstName, lastName, username, avatarUrl, totalCo2, totalActions, currentRank, co2Trend, actionsTrend, rankChange, co2ThisMonth, monthlyGoalCo2, monthlyCo2, co2ByCategoryData, allActionsData, achievementsData, recentBadges, nextBadge }) {
+export default function ProfilePage({ editUrl, firstName, lastName, username, avatarUrl, totalCo2, twinCo2, scoreThisWeek, scoreWeekChange, totalActions, currentRank, co2Trend, actionsTrend, rankChange, co2ThisMonth, monthlyGoalCo2, monthlyCo2, co2ByCategoryData, allActionsData, achievementsData, recentBadges, nextBadge }) {
     const [activeTab, setActiveTab] = useState('overview');
 
     const renderTab = () => {
@@ -18,6 +18,9 @@ export default function ProfilePage({ editUrl, firstName, lastName, username, av
                     <>
                         <StatsOverview
                             totalCo2={totalCo2}
+                            twinCo2={twinCo2}
+                            scoreThisWeek={scoreThisWeek}
+                            scoreWeekChange={scoreWeekChange}
                             totalActions={totalActions}
                             currentRank={currentRank}
                             co2Trend={co2Trend}

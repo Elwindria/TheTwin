@@ -1139,3 +1139,37 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* ── Toi vs Ton Twin ───────────────────────────────────────── */
+.stats-vs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stats-vs-value {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.stats-vs--winning {
+    color: #16a34a;
+}
+
+.stats-vs--losing {
+    color: #dc2626;
+}
+
+.stats-vs-separator {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    font-weight: 600;
+}
+
+.stats-vs-twin {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #374151;
+}
