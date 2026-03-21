@@ -157,6 +157,7 @@ class ProfileController extends AbstractController
                 $nextBadge = [
                     'name'        => $a->getName(),
                     'type'        => $a->getType(),
+                    'imageUrl'    => $a->getImageUrl(),
                     'threshold'   => $a->getThreshold(),
                     'currentValue'=> $current,
                     'progressPct' => round($progress * 100),
@@ -169,6 +170,7 @@ class ProfileController extends AbstractController
             'code'      => $ua->getAchievement()->getCode(),
             'name'      => $ua->getAchievement()->getName(),
             'type'      => $ua->getAchievement()->getType(),
+            'imageUrl'  => $ua->getAchievement()->getImageUrl(),
             'awardedAt' => $ua->getAwardedAt()->format('d M Y'),
         ], array_slice($userAchievements, 0, 3));
 
