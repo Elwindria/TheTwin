@@ -610,3 +610,214 @@ button:hover {
 .twin-tab-error {
     color: #dc2626;
 }
+
+/* ── Mon Score Tab ─────────────────────────────────────────── */
+.score-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.score-empty {
+    text-align: center;
+    color: #64748b;
+    padding: 2rem;
+}
+
+.score-total-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px 20px;
+}
+
+.score-total-label {
+    font-size: 0.95rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.score-total-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #16a34a;
+}
+
+.score-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+.score-category-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+}
+
+.score-category-icon {
+    font-size: 1.6rem;
+}
+
+.score-category-name {
+    font-size: 0.78rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.score-category-pts {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.score-category-count {
+    font-size: 0.72rem;
+    color: #9ca3af;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    #twin-page {
+        flex-direction: column;
+        min-height: unset;
+    }
+
+    .twin-panel {
+        width: 100%;
+    }
+
+    #twin-page-left {
+        display: none;
+    }
+
+    #twin-page-right {
+        padding: 1.5rem 1rem;
+    }
+
+    .twin-tabs {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 0.5rem;
+        gap: 0;
+        scrollbar-width: none;
+    }
+
+    .twin-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .twin-tabs__button {
+        padding: 0.5rem 0.875rem;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+    }
+
+    /* Mon Twin — catégories CO2 */
+    .twin-categories-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .twin-status-summary {
+        padding: 1.25rem;
+    }
+
+    .total-value {
+        font-size: 2rem;
+    }
+
+    /* Mon Score */
+    .score-categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .historique-filters {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .historique-search,
+    .historique-select {
+        width: 100%;
+    }
+
+    /* Challenges */
+    .challenge-modal {
+        margin: 1rem;
+        max-height: 85vh;
+    }
+
+    .challenge-modal-footer {
+        flex-direction: column;
+    }
+
+    .challenge-modal-cancel,
+    .challenge-modal-submit {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    #twin-page-right {
+        padding: 1rem 0.75rem;
+    }
+
+    .twin-tabs__button {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.8rem;
+    }
+
+    .score-categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .score-total-value {
+        font-size: 1.1rem;
+    }
+
+    .historique-item {
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-start;
+    }
+
+    .historique-item__right {
+        align-self: flex-end;
+    }
+}
+
+/* ── Mobile Banner ─────────────────────────────────────────── */
+.twin-mobile-banner {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .twin-mobile-banner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 150px;
+        overflow: hidden;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+    }
+
+    .twin-mobile-banner .img {
+        max-width: 140px;
+        max-height: 140px;
+        object-fit: contain;
+    }
+}
