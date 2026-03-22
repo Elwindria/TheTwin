@@ -41,16 +41,29 @@ class ProfileController extends AbstractController
         $lastMonthYear      = $currentMonth === 1 ? $currentYear - 1 : $currentYear;
         $startLastMonth     = new \DateTimeImmutable("$lastMonthYear-$lastMonth-01 00:00:00");
 
+        // dates pour la semaine en cours et la semaine précédente (lundi → dimanche)
+        $dayOfWeek      = (int) $now->format('N'); // 1=lundi, 7=dimanche
+        $startThisWeek  = $now->modify('-' . ($dayOfWeek - 1) . ' days')->setTime(0, 0, 0);
+        $startNextWeek  = $startThisWeek->modify('+7 days');
+        $startLastWeek  = $startThisWeek->modify('-7 days');
+
         // récupération des actions via le repository
         $allActions         = $userActionRepo->getAllUserActionsForUser($user);
         $actionsThisMonth   = $userActionRepo->getAllWeeklyUserActionsForUser($user, $startThisMonth, $startNextMonth);
         $actionsLastMonth   = $userActionRepo->getAllWeeklyUserActionsForUser($user, $startLastMonth, $startThisMonth);
+        $actionsThisWeek    = $userActionRepo->getAllWeeklyUserActionsForUser($user, $startThisWeek, $startNextWeek);
+        $actionsLastWeek    = $userActionRepo->getAllWeeklyUserActionsForUser($user, $startLastWeek, $startThisWeek);
         $allUsersActions    = $userActionRepo->getAllUserActionsForAllUsers();
         $allUsersLastMonth  = $userActionRepo->getAllWeeklyUserActionsForAllUsers(new \DateTimeImmutable('2000-01-01'), $startThisMonth);
 
         // calcul des totaux
         $totalCo2     = array_sum(array_map(fn($ua) => (float) $ua->getFinalCo2Saved(), $allActions));
+        $twinCo2      = array_sum(array_map(fn($ua) => (float) $ua->getFinalTwinCo2Produced(), $allActions));
         $totalActions = count($allActions);
+
+        $scoreThisWeek    = array_sum(array_map(fn($ua) => $ua->getScore(), $actionsThisWeek));
+        $scoreLastWeek    = array_sum(array_map(fn($ua) => $ua->getScore(), $actionsLastWeek));
+        $scoreWeekChange  = $scoreThisWeek - $scoreLastWeek;
 
         $co2ThisMonth     = array_sum(array_map(fn($ua) => (float) $ua->getFinalCo2Saved(), $actionsThisMonth));
         $co2LastMonth     = array_sum(array_map(fn($ua) => (float) $ua->getFinalCo2Saved(), $actionsLastMonth));
@@ -157,6 +170,7 @@ class ProfileController extends AbstractController
                 $nextBadge = [
                     'name'        => $a->getName(),
                     'type'        => $a->getType(),
+                    'imageUrl'    => $a->getImageUrl(),
                     'threshold'   => $a->getThreshold(),
                     'currentValue'=> $current,
                     'progressPct' => round($progress * 100),
@@ -169,6 +183,7 @@ class ProfileController extends AbstractController
             'code'      => $ua->getAchievement()->getCode(),
             'name'      => $ua->getAchievement()->getName(),
             'type'      => $ua->getAchievement()->getType(),
+            'imageUrl'  => $ua->getAchievement()->getImageUrl(),
             'awardedAt' => $ua->getAwardedAt()->format('d M Y'),
         ], array_slice($userAchievements, 0, 3));
 
@@ -188,6 +203,9 @@ class ProfileController extends AbstractController
             'username'         => $user->getUsername(),
             'avatarUrl'        => $avatarUrl,
             'totalCo2'         => $totalCo2,
+            'twinCo2'          => $twinCo2,
+            'scoreThisWeek'    => $scoreThisWeek,
+            'scoreWeekChange'  => $scoreWeekChange,
             'totalActions'     => $totalActions,
             'currentRank'      => $currentRank,
             'co2Trend'         => $co2Trend,

@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 const TYPE_ICONS = {
     total_score:                    { icon: '🏆', color: '#fef3c7', border: '#fcd34d' },
     victory_count:                  { icon: '⚔️', color: '#fce7f3', border: '#f9a8d4' },
@@ -11,6 +13,26 @@ const TYPE_ICONS = {
     category_engagement_ecologique: { icon: '🌿', color: '#d1fae5', border: '#6ee7b7' },
 };
 
+function BadgeImage({ imageUrl, name, meta }) {
+    const [imgFailed, setImgFailed] = useState(false);
+    const showImage = imageUrl && !imgFailed;
+
+    return (
+        <div className="recent-badge-icon-circle" style={{ background: meta.color, borderColor: meta.border }}>
+            {showImage ? (
+                <img
+                    src={`/${imageUrl}`}
+                    alt={name}
+                    className="badge-img"
+                    onError={() => setImgFailed(true)}
+                />
+            ) : (
+                <span>{meta.icon}</span>
+            )}
+        </div>
+    );
+}
+
 function NextBadgeCard({ nextBadge }) {
     if (!nextBadge) return null;
     const meta = TYPE_ICONS[nextBadge.type] ?? { icon: '🌱', color: '#dcfce7', border: '#86efac' };
@@ -20,9 +42,7 @@ function NextBadgeCard({ nextBadge }) {
         <div className="next-badge-card">
             <p className="next-badge-title">Prochain Badge</p>
             <div className="next-badge-info">
-                <div className="next-badge-icon-circle" style={{ background: meta.color, borderColor: meta.border }}>
-                    <span>{meta.icon}</span>
-                </div>
+                <BadgeImage imageUrl={nextBadge.imageUrl} name={label} meta={meta} />
                 <p className="next-badge-name">{label}</p>
             </div>
             <div className="next-badge-progress">
@@ -57,9 +77,7 @@ export default function RecentBadgesCard({ recentBadges, nextBadge, setActiveTab
                         const meta = TYPE_ICONS[badge.type] ?? { icon: '🌱', color: '#dcfce7', border: '#86efac' };
                         return (
                             <div key={badge.code} className="recent-badge-card">
-                                <div className="recent-badge-icon-circle" style={{ background: meta.color, borderColor: meta.border }}>
-                                    <span>{meta.icon}</span>
-                                </div>
+                                <BadgeImage imageUrl={badge.imageUrl} name={badge.name} meta={meta} />
                                 <p className="recent-badge-name">{badge.name.replace(/^[^-]+ - /, '')}</p>
                             </div>
                         );
