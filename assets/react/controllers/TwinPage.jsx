@@ -9,7 +9,7 @@ import scoreImage from '../../images/scoreImage.png';
 import challengesImage from '../../images/challengesImage.png';
 import actionsImage from '../../images/actionsImage.png';
 
-export default function TwinPage({ actionsData }) {
+export default function TwinPage({ actionsData, userActionsData }) {
     const [activeTab, setActiveTab] = useState('twin');
 
     const renderActiveTab = () => {
@@ -17,7 +17,7 @@ export default function TwinPage({ actionsData }) {
             case 'twin':
                 return <MyTwinTab />;
             case 'score':
-                return <MyScoreTab />;
+                return <MyScoreTab userActionsData={userActionsData} />;
             case 'challenges':
                 return <MyChallengesTab />;
             case 'actions':
@@ -63,6 +63,11 @@ export default function TwinPage({ actionsData }) {
                 <img className={`img ${getTwinImageClass()}`} src={getTwinImage()} alt="Twin" />
             </div>
             <div id="twin-page-right" className="twin-panel">
+                {activeTab === 'twin' && (
+                    <div className="twin-mobile-banner" style={{ backgroundColor: 'black' }}>
+                        <img className="img img-twin" src={twinImage} alt="Twin" />
+                    </div>
+                )}
                 <TwinTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
                 <div className="twin-page__content">

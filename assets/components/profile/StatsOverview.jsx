@@ -1,5 +1,5 @@
 // les 3 cartes de stats : CO2, actions, classement
-export default function StatsOverview({ totalCo2, totalActions, currentRank, co2Trend, actionsTrend, rankChange }) {
+export default function StatsOverview({ totalCo2, twinCo2, scoreThisWeek, scoreWeekChange, totalActions, currentRank, co2Trend, actionsTrend, rankChange }) {
 
     // grammes si < 1000, sinon on convertit en kg
     const formatCo2 = (grams) => {
@@ -47,12 +47,15 @@ export default function StatsOverview({ totalCo2, totalActions, currentRank, co2
             </div>
 
             <div className="stats-card">
-                <div className="stats-icon stats-icon--purple">#</div>
-                <p className="stats-label">Classement Global</p>
-                <p className="stats-value">#{currentRank}</p>
-                {formatRankChange(rankChange) && (
-                    <p className={`stats-trend ${rankChange > 0 ? 'trend--up' : 'trend--down'}`}>
-                        {rankChange > 0 ? '↑' : '↓'} {formatRankChange(rankChange)}
+                <div className="stats-icon stats-icon--purple">📅</div>
+                <p className="stats-label">Score cette semaine</p>
+                <p className="stats-value">
+                    {scoreThisWeek.toLocaleString()}
+                    <span className="stats-unit"> pts</span>
+                </p>
+                {scoreWeekChange !== 0 && (
+                    <p className={`stats-trend ${scoreWeekChange > 0 ? 'trend--up' : 'trend--down'}`}>
+                        {scoreWeekChange > 0 ? '↑' : '↓'} {scoreWeekChange > 0 ? '+' : ''}{scoreWeekChange.toLocaleString()} vs semaine passée
                     </p>
                 )}
             </div>
