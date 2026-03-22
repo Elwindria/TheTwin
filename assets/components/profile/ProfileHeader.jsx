@@ -1,5 +1,5 @@
 // Carte en haut de la page profil : avatar, nom, badges et bouton modifier
-export default function ProfileHeader({ editUrl, firstName, lastName, username, avatarUrl }) {
+export default function ProfileHeader({ editUrl, firstName, lastName, username }) {
 
     // On génère les initiales à partir du prénom et nom pour le placeholder
     const initials = `${firstName?.[0] ?? ''}${lastName?.[0] ?? ''}`.toUpperCase();
@@ -9,18 +9,10 @@ export default function ProfileHeader({ editUrl, firstName, lastName, username, 
 
             {/* Avatar avec bordure verte et badge LVL */}
             <div className="profil-avatar-wrapper">
-                {avatarUrl ? (
-                    <img
-                        src={avatarUrl}
-                        alt="Photo de profil"
-                        className="profil-avatar"
-                    />
-                ) : (
-                    // Pas de photo : on affiche les initiales
+                    {/* on affiche les initiales */}
                     <div className="profil-avatar profil-avatar--placeholder">
                         {initials}
                     </div>
-                )}
                 <span className="profil-lvl-badge">LVL 1</span>
             </div>
 
